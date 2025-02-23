@@ -101,3 +101,4 @@ document.getElementById("logoutBtn").addEventListener("click", logout);
 document.getElementById("createProfileBtn").addEventListener("click", createTutorProfile);
 document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
 
+
