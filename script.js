@@ -1,4 +1,4 @@
-// Tutora Web App - Updated Code with Authentication & Tutor Profile Creation
+// Tutora Web App - Updated Code with Session Booking & Payment System
 
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
@@ -63,8 +63,41 @@ function createTutorProfile() {
     }).catch((error) => console.error("Error creating tutor profile:", error.message));
 }
 
+// Session Booking System
+function bookSession() {
+    const userId = firebase.auth().currentUser?.uid;
+    if (!userId) {
+        alert("Please log in first.");
+        return;
+    }
+
+    const tutorId = document.getElementById('tutorId').value;
+    const date = document.getElementById('sessionDate').value;
+    const duration = document.getElementById('sessionDuration').value;
+    const price = document.getElementById('sessionPrice').value;
+
+    db.collection("sessions").add({
+        parentId: userId,
+        tutorId: tutorId,
+        date: date,
+        duration: duration,
+        price: price,
+        status: "pending"
+    }).then(() => {
+        console.log("Session booked successfully");
+    }).catch((error) => console.error("Error booking session:", error.message));
+}
+
+// Payment Processing Placeholder
+function processPayment(sessionId, amount) {
+    console.log(`Processing payment of $${amount} for session ${sessionId}...`);
+    // Replace with actual payment API integration (Stripe, PayPal, etc.)
+}
+
 // Event Listeners
 document.getElementById("signUpBtn").addEventListener("click", signUp);
 document.getElementById("loginBtn").addEventListener("click", login);
 document.getElementById("logoutBtn").addEventListener("click", logout);
 document.getElementById("createProfileBtn").addEventListener("click", createTutorProfile);
+document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
+
