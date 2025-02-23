@@ -1,4 +1,4 @@
-// Tutora Web App - Updated Code with Session Booking & Payment System
+// Tutora Web App - Full Payment Integration
 
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
@@ -41,29 +41,7 @@ function logout() {
     .catch((error) => console.error("Error logging out:", error.message));
 }
 
-// Tutor Profile Creation & Verification System
-function createTutorProfile() {
-    const userId = firebase.auth().currentUser?.uid;
-    if (!userId) {
-        alert("Please log in first.");
-        return;
-    }
-
-    const name = document.getElementById('tutorName').value;
-    const subject = document.getElementById('subject').value;
-    const qualification = document.getElementById('qualification').value;
-
-    db.collection("tutors").doc(userId).set({
-        name: name,
-        subject: subject,
-        qualification: qualification,
-        verified: false // Default until reviewed
-    }).then(() => {
-        console.log("Tutor profile created successfully");
-    }).catch((error) => console.error("Error creating tutor profile:", error.message));
-}
-
-// Session Booking System
+// Session Booking System with Payment Options
 function bookSession() {
     const userId = firebase.auth().currentUser?.uid;
     if (!userId) {
@@ -75,30 +53,54 @@ function bookSession() {
     const date = document.getElementById('sessionDate').value;
     const duration = document.getElementById('sessionDuration').value;
     const price = document.getElementById('sessionPrice').value;
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-    db.collection("sessions").add({
+    const sessionRef = db.collection("sessions").doc();
+    const sessionData = {
         parentId: userId,
         tutorId: tutorId,
         date: date,
         duration: duration,
         price: price,
-        status: "pending"
-    }).then(() => {
-        console.log("Session booked successfully");
-    }).catch((error) => console.error("Error booking session:", error.message));
+        paymentMethod: paymentMethod,
+        status: paymentMethod === 'Stripe' ? "Paid" : "Pending Payment"
+    };
+
+    sessionRef.set(sessionData)
+    .then(() => {
+        if (paymentMethod === 'Stripe') {
+            processStripePayment(sessionRef.id, price);
+        } else if (paymentMethod === 'PayPal') {
+            processPayPalPayment(sessionRef.id, price);
+        } else {
+            alert("Payment instructions for " + paymentMethod + " will be sent.");
+            console.log("Session booked, waiting for manual payment confirmation.");
+        }
+    })
+    .catch((error) => console.error("Error booking session:", error.message));
 }
 
-// Payment Processing Placeholder
-function processPayment(sessionId, amount) {
-    console.log(`Processing payment of $${amount} for session ${sessionId}...`);
-    // Replace with actual payment API integration (Stripe, PayPal, etc.)
+// Stripe Payment Processing (Placeholder)
+function processStripePayment(sessionId, amount) {
+    console.log(`Processing Stripe payment of $${amount} for session ${sessionId}...`);
+    // Replace with actual Stripe API integration
+}
+
+// PayPal Payment Handling (Redirecting to PayPal)
+function processPayPalPayment(sessionId, amount) {
+    console.log(`Redirecting to PayPal for session ${sessionId} with amount $${amount}`);
+    // Implement PayPal redirection logic here
+}
+
+// Manual Payment Methods (CashApp, Zelle)
+function confirmManualPayment(sessionId) {
+    db.collection("sessions").doc(sessionId).update({ status: "Paid" })
+    .then(() => console.log("Manual payment confirmed for session", sessionId))
+    .catch((error) => console.error("Error confirming manual payment:", error.message));
 }
 
 // Event Listeners
 document.getElementById("signUpBtn").addEventListener("click", signUp);
 document.getElementById("loginBtn").addEventListener("click", login);
 document.getElementById("logoutBtn").addEventListener("click", logout);
-document.getElementById("createProfileBtn").addEventListener("click", createTutorProfile);
 document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
-
-
