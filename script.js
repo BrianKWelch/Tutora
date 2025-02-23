@@ -1,4 +1,4 @@
-// Tutora Web App - Full Payment Integration
+// Tutora Web App - Fixed Tutor Profile & Button Actions
 
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
@@ -19,9 +19,9 @@ function signUp() {
     
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-        console.log("User signed up:", userCredential.user);
+        alert("User signed up successfully!");
     })
-    .catch((error) => console.error("Error signing up:", error.message));
+    .catch((error) => alert("Error signing up: " + error.message));
 }
 
 function login() {
@@ -30,15 +30,37 @@ function login() {
     
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
-        console.log("User logged in:", userCredential.user);
+        alert("User logged in successfully!");
     })
-    .catch((error) => console.error("Error logging in:", error.message));
+    .catch((error) => alert("Error logging in: " + error.message));
 }
 
 function logout() {
     firebase.auth().signOut()
-    .then(() => console.log("User logged out"))
-    .catch((error) => console.error("Error logging out:", error.message));
+    .then(() => alert("User logged out!"))
+    .catch((error) => alert("Error logging out: " + error.message));
+}
+
+// Tutor Profile Creation & Verification System
+function createTutorProfile() {
+    const userId = firebase.auth().currentUser?.uid;
+    if (!userId) {
+        alert("Please log in first.");
+        return;
+    }
+
+    const name = document.getElementById('tutorName').value;
+    const subject = document.getElementById('subject').value;
+    const qualification = document.getElementById('qualification').value;
+
+    db.collection("tutors").doc(userId).set({
+        name: name,
+        subject: subject,
+        qualification: qualification,
+        verified: false
+    }).then(() => {
+        alert("Tutor profile created successfully!");
+    }).catch((error) => alert("Error creating tutor profile: " + error.message));
 }
 
 // Session Booking System with Payment Options
@@ -55,8 +77,7 @@ function bookSession() {
     const price = document.getElementById('sessionPrice').value;
     const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-    const sessionRef = db.collection("sessions").doc();
-    const sessionData = {
+    db.collection("sessions").add({
         parentId: userId,
         tutorId: tutorId,
         date: date,
@@ -64,43 +85,14 @@ function bookSession() {
         price: price,
         paymentMethod: paymentMethod,
         status: paymentMethod === 'Stripe' ? "Paid" : "Pending Payment"
-    };
-
-    sessionRef.set(sessionData)
-    .then(() => {
-        if (paymentMethod === 'Stripe') {
-            processStripePayment(sessionRef.id, price);
-        } else if (paymentMethod === 'PayPal') {
-            processPayPalPayment(sessionRef.id, price);
-        } else {
-            alert("Payment instructions for " + paymentMethod + " will be sent.");
-            console.log("Session booked, waiting for manual payment confirmation.");
-        }
-    })
-    .catch((error) => console.error("Error booking session:", error.message));
-}
-
-// Stripe Payment Processing (Placeholder)
-function processStripePayment(sessionId, amount) {
-    console.log(`Processing Stripe payment of $${amount} for session ${sessionId}...`);
-    // Replace with actual Stripe API integration
-}
-
-// PayPal Payment Handling (Redirecting to PayPal)
-function processPayPalPayment(sessionId, amount) {
-    console.log(`Redirecting to PayPal for session ${sessionId} with amount $${amount}`);
-    // Implement PayPal redirection logic here
-}
-
-// Manual Payment Methods (CashApp, Zelle)
-function confirmManualPayment(sessionId) {
-    db.collection("sessions").doc(sessionId).update({ status: "Paid" })
-    .then(() => console.log("Manual payment confirmed for session", sessionId))
-    .catch((error) => console.error("Error confirming manual payment:", error.message));
+    }).then(() => {
+        alert("Session booked successfully!");
+    }).catch((error) => alert("Error booking session: " + error.message));
 }
 
 // Event Listeners
 document.getElementById("signUpBtn").addEventListener("click", signUp);
 document.getElementById("loginBtn").addEventListener("click", login);
 document.getElementById("logoutBtn").addEventListener("click", logout);
+document.getElementById("createProfileBtn").addEventListener("click", createTutorProfile);
 document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
