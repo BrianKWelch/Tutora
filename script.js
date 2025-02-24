@@ -1,5 +1,9 @@
 // Tutora Web App - Fixed Tutor Profile & Button Actions
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
     apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
