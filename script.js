@@ -5,12 +5,13 @@ import { getFirestore, collection, addDoc, setDoc, doc } from "https://www.gstat
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
+    authDomain: "tutora-93be2.firebaseapp.com",
+    projectId: "tutora-93be2",
+    storageBucket: "tutora-93be2.appspot.com",
+    messagingSenderId: "538400859458",
+    appId: "1:538400859458:web:1c45fe0364821442d854db",
+    measurementId: "G-SJ9FDWTHED"
 };
 
 // Initialize Firebase
