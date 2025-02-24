@@ -2,13 +2,12 @@
 
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
-    apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
-    authDomain: "tutora-93be2.firebaseapp.com",
-    projectId: "tutora-93be2",
-    storageBucket: "tutora-93be2.firebasestorage.app",
-    messagingSenderId: "538400859458",
-    appId: "1:538400859458:web:1c45fe0364821442d854db",
-    measurementId: "G-SJ9FDWTHED"
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
