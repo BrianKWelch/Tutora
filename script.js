@@ -1,9 +1,5 @@
 // Tutora Web App - Fixed Tutor Profile & Button Actions
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
 // Initialize Firebase (Replace with your Firebase project details)
 const firebaseConfig = {
     apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
@@ -12,7 +8,6 @@ const firebaseConfig = {
     storageBucket: "tutora-93be2.appspot.com",
     messagingSenderId: "538400859458",
     appId: "1:538400859458:web:1c45fe0364821442d854db",
-    measurementId: "G-SJ9FDWTHED"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
@@ -24,7 +19,8 @@ function signUp() {
     
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-        alert("User signed up successfully!");
+       console.log("User signed up:", userCredential.user);
+       // alert("User signed up successfully!");
     })
     .catch((error) => alert("Error signing up: " + error.message));
 }
