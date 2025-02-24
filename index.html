@@ -11,38 +11,38 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <h1>Welcome to Tutora</h1>
-    <p>The best place to connect tutors and students.</p>
-    
-    <input type="email" id="email" placeholder="Enter Email">
-    <input type="password" id="password" placeholder="Enter Password">
-    <button id="signUpBtn">Sign Up</button>
-    <button id="loginBtn">Log In</button>
-    <button id="logoutBtn">Log Out</button>
+    <div class="container">
+        <h1>Welcome to Tutora</h1>
+        <p>The best place to connect tutors and students.</p>
+        
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button id="signUpBtn">Sign Up</button>
+        <button id="loginBtn">Log In</button>
+        <button id="logoutBtn">Log Out</button>
 
-    <h2>Create Tutor Profile</h2>
-    <input type="text" id="tutorName" placeholder="Tutor Name">
-    <input type="text" id="subject" placeholder="Subject">
-    <input type="text" id="qualification" placeholder="Qualification">
-    <button id="createProfileBtn">Create Profile</button>
+        <h2>Create Tutor Profile</h2>
+        <input type="text" id="tutorName" placeholder="Tutor Name">
+        <input type="text" id="subject" placeholder="Subject">
+        <input type="text" id="qualification" placeholder="Qualification">
+        <button id="createProfileBtn">Create Profile</button>
 
+        <h2>Book a Session</h2>
+        <input type="text" id="tutorId" placeholder="Tutor ID">
+        <input type="date" id="sessionDate">
+        <input type="number" id="sessionDuration" placeholder="Duration (hrs)">
+        <input type="number" id="sessionPrice" placeholder="Price ($)">
+        
+        <h3>Select Payment Method:</h3>
+        <input type="radio" name="paymentMethod" value="Stripe" checked> Stripe (Credit/Debit Card)<br>
+        <input type="radio" name="paymentMethod" value="PayPal"> PayPal<br>
+        <input type="radio" name="paymentMethod" value="CashApp"> CashApp<br>
+        <input type="radio" name="paymentMethod" value="Zelle"> Zelle<br>
 
-    
-    <h2>Book a Session</h2>
-    <input type="text" id="tutorId" placeholder="Tutor ID">
-    <input type="date" id="sessionDate">
-    <input type="number" id="sessionDuration" placeholder="Duration (hrs)">
-    <input type="number" id="sessionPrice" placeholder="Price ($)">
-    
-    <h3>Select Payment Method:</h3>
-    <input type="radio" name="paymentMethod" value="Stripe" checked> Stripe (Credit/Debit Card)<br>
-    <input type="radio" name="paymentMethod" value="PayPal"> PayPal<br>
-    <input type="radio" name="paymentMethod" value="CashApp"> CashApp<br>
-    <input type="radio" name="paymentMethod" value="Zelle"> Zelle<br>
+        <button id="bookSessionBtn">Book Session</button>
+    </div>
 
-    <button id="bookSessionBtn">Book Session</button>
-
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
