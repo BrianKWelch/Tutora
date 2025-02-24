@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Tutora1</h1>
+        <h1>Welcome to Tutora13</h1>
         <p>The best place to connect tutors and students.</p>
         
         <input type="email" id="email" placeholder="Enter Email">
@@ -45,6 +46,58 @@
 
     <!-- Load Fixed Script -->
     <script type="module" src="script.js"></script>
+
+<div class="container">
+    <h1>Parent Dashboard</h1>
+    
+    <h2>Welcome, <span id="parentName">Parent</span></h2>
+    
+    <h3>Student Management</h3>
+    <ul id="studentList"></ul>
+    <button onclick="addStudent()">Add Student</button>
+    
+    <h3>Upcoming Sessions</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Tutor</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="upcomingSessions"></tbody>
+    </table>
+    
+    <h3>Past Sessions</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Tutor</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="pastSessions"></tbody>
+    </table>
+    
+    <h3>Payment History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction ID</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="paymentHistory"></tbody>
+    </table>
+</div>
+
 </body>
 </html>
 
