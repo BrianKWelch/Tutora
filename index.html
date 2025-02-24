@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Tutora13</h1>
+        <h1>Welcome to Tutora1</h1>
         <p>The best place to connect tutors and students.</p>
         
         <input type="email" id="email" placeholder="Enter Email">
@@ -98,7 +98,21 @@
     </table>
 </div>
 
+
+<script>
+function addStudent() {
+    let studentName = prompt("Enter Student Name:");
+    if (studentName) {
+        let studentList = document.getElementById("studentList");
+        let listItem = document.createElement("li");
+        listItem.textContent = studentName;
+        studentList.appendChild(listItem);
+        console.log("Added student:", studentName);
+    }
+}
+</script>
 </body>
+
 </html>
 
 
