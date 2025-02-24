@@ -117,6 +117,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
 });
 
+// Function to Add Student
+function addStudent() {
+    let studentName = prompt("Enter Student Name:");
+    if (studentName) {
+        let studentList = document.getElementById("studentList");
+        let listItem = document.createElement("li");
+        listItem.textContent = studentName;
+        studentList.appendChild(listItem);
+        console.log("Added student:", studentName);
+    }
+}
+
 
 // Function to Load Parent Dashboard Data
 function loadParentDashboard() {
