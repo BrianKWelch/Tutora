@@ -116,3 +116,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("createProfileBtn").addEventListener("click", createTutorProfile);
     document.getElementById("bookSessionBtn").addEventListener("click", bookSession);
 });
+
+
+// Function to Load Parent Dashboard Data
+function loadParentDashboard() {
+    console.log("Loading Parent Dashboard...");
+
+    // Fetch upcoming sessions
+    document.getElementById("upcomingSessions").innerHTML = "<tr><td>John Doe</td><td>Ms. Smith</td><td>March 10</td><td>1 hour</td><td><button>Cancel</button></td></tr>";
+
+    // Fetch past sessions
+    document.getElementById("pastSessions").innerHTML = "<tr><td>John Doe</td><td>Mr. Brown</td><td>Feb 20</td><td>1.5 hours</td><td>Completed</td></tr>";
+
+    // Fetch payment history
+    document.getElementById("paymentHistory").innerHTML = "<tr><td>TXN123456</td><td>$50</td><td>March 1</td><td>Paid</td></tr>";
+}
+
+// Ensure Parent Dashboard loads when the page is ready
+document.addEventListener("DOMContentLoaded", loadParentDashboard);
