@@ -5,36 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutora - Tutor Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .user-info {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .user-info h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .name-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .name-container input {
+            width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome, <span id="tutorName">Tutor</span></h1>
-        <p id="tutorEmail"></p>
+        <!-- User Info Section -->
+        <div class="user-info">
+            <h1 id="userEmail">Loading...</h1>
+            <div class="name-container">
+                <input type="text" id="firstName" readonly>
+                <input type="text" id="lastName" readonly>
+            </div>
+        </div>
 
-        <h2>Your Profile</h2>
-        <p><strong>Name:</strong> <span id="displayName"></span></p>
-        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
-        <p><strong>Subjects:</strong> <span id="displaySubjects"></span></p>
-        <p><strong>Grade Levels:</strong> <span id="displayGrades"></span></p>
-        <p><strong>Status:</strong> <span id="tutorStatus">Pending Approval</span></p>
+        <h2>Welcome to Your Tutor Dashboard</h2>
+        <p>This is where tutors can manage their profile, availability, and sessions.</p>
 
-        <h2>Manage Your Availability</h2>
-        <button id="editAvailabilityBtn">Edit Availability</button>
+        <h3>Your Tutor Status:</h3>
+        <p id="tutorStatus">Checking status...</p>
+
+        <h3>Manage Availability</h3>
         <div id="calendar"></div>
 
-        <h2>Upcoming Sessions</h2>
-        <ul id="upcomingSessions"></ul>
+        <h3>Upcoming Sessions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="upcomingSessions"></tbody>
+        </table>
 
-        <h2>Past Sessions</h2>
-        <ul id="pastSessions"></ul>
-
-        <button id="logoutBtn">Log Out</button>
+        <h3>Past Sessions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="pastSessions"></tbody>
+        </table>
     </div>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK (Modules) -->
     <script type="module">
+        // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Firebase Configuration
@@ -53,33 +121,24 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Ensure Tutor is Logged In
+        // Fetch user info and update dashboard
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                document.getElementById("tutorEmail").textContent = user.email;
+                document.getElementById("userEmail").textContent = user.email;
 
-                // Fetch Tutor Data
+                // Fetch first & last name from Firestore
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
-                    const tutorData = userDoc.data();
-                    document.getElementById("displayName").textContent = tutorData.firstName + " " + tutorData.lastName;
-                    document.getElementById("displayEmail").textContent = tutorData.email;
-                    document.getElementById("displaySubjects").textContent = tutorData.subjects || "Not set";
-                    document.getElementById("displayGrades").textContent = tutorData.gradeLevels || "Not set";
-                    document.getElementById("tutorStatus").textContent = tutorData.status || "Pending Approval";
+                    document.getElementById("firstName").value = userDoc.data().firstName;
+                    document.getElementById("lastName").value = userDoc.data().lastName;
+                } else {
+                    document.getElementById("firstName").value = "Unknown";
+                    document.getElementById("lastName").value = "User";
                 }
             } else {
-                window.location.href = "index.html"; // Redirect if not logged in
+                window.location.href = "index.html"; // Redirect to login if not authenticated
             }
         });
-
-        // Logout Button
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            signOut(auth).then(() => {
-                window.location.href = "index.html"; // Redirect to login
-            });
-        });
-
     </script>
 </body>
 </html>
