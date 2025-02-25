@@ -3,63 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutora - Tutor Dashboard</title>
+    <title>Tutora - Tutor Registration</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 </head>
 <body>
-    <div class="container" id="tutorDashboard">
-        <h1>Welcome to the Tutor Dashboard</h1>
-        <p id="statusMessage"></p>
+    <div class="container" id="tutorRegistration">
+        <h1>Become a Tutor on Tutora</h1>
+        <p>Fill out the form below to submit your application.</p>
         
-        <div id="tutorSignup" style="display: none;">
-            <h2>Tutor Registration</h2>
-            <input type="text" id="firstName" placeholder="First Name" required>
-            <input type="text" id="lastName" placeholder="Last Name" required>
-            <input type="text" id="subjects" placeholder="Subjects You Want to Tutor" required>
-            <input type="text" id="gradeLevels" placeholder="Grade Levels" required>
+        <form id="tutorSignupForm">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+            
+            <label for="subjects">Subjects You Want to Tutor:</label>
+            <input type="text" id="subjects" required>
+            
+            <label for="gradeLevels">Grade Levels You Can Teach:</label>
+            <input type="text" id="gradeLevels" required>
+            
+            <label for="qualification">Your Qualification:</label>
             <select id="qualification">
                 <option value="certified">Certified Teacher</option>
                 <option value="college">Active College Student</option>
                 <option value="graduate">College Graduate</option>
                 <option value="highschool">High School Graduate</option>
             </select>
-            <p>Upload Required Documents:</p>
+            
+            <label>Upload Required Documents:</label>
+            <label for="uploadDL">Driver's License:</label>
             <input type="file" id="uploadDL" accept="image/*,.pdf" required>
+            
+            <label for="uploadCert">Certification/Degree Proof:</label>
             <input type="file" id="uploadCert" accept="image/*,.pdf" required>
-            <button id="submitTutorApplication">Submit Application</button>
-        </div>
-
-        <div id="pendingApproval" style="display: none;">
-            <h2>Your Tutor Application is Pending</h2>
-            <p>Please complete the required test and wait for document verification.</p>
-            <button id="takeTest">Take Tutor Qualification Test</button>
-        </div>
-
-        <div id="tutorActive" style="display: none;">
-            <h2>Your Tutor Profile is Active</h2>
-            <p>Your Tutor Number: <span id="tutorNumber"></span></p>
-            <h3>Update Availability</h3>
-            <div id='calendar'></div>
-            <button id="updateAvailability">Update Availability</button>
-        </div>
+            
+            <button type="submit">Submit Application</button>
+        </form>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const tutorStatus = "pending"; // Change this dynamically from the database
-        const tutorNumber = "T12345"; // Assign unique number after approval
-
-        if (tutorStatus === "new") {
-            document.getElementById("tutorSignup").style.display = "block";
-        } else if (tutorStatus === "pending") {
-            document.getElementById("pendingApproval").style.display = "block";
-        } else if (tutorStatus === "active") {
-            document.getElementById("tutorActive").style.display = "block";
-            document.getElementById("tutorNumber").innerText = tutorNumber;
-        }
-    });
+        document.getElementById("tutorSignupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Application Submitted! You will be redirected to the waiting page.");
+            window.location.href = "tutor-waiting.html";
+        });
     </script>
 </body>
 </html>
