@@ -28,6 +28,7 @@
         // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -43,6 +44,7 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
 
         // Login Event Listener
         document.getElementById("loginBtn").addEventListener("click", async function() {
@@ -54,7 +56,17 @@
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                let user = userCredential.user;
+                localStorage.setItem("userEmail", user.email);
                 localStorage.setItem("userType", userType);
+
+                // Fetch user details from Firestore
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    localStorage.setItem("firstName", userDoc.data().firstName);
+                    localStorage.setItem("lastName", userDoc.data().lastName);
+                }
+                
                 window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
             } catch (error) {
                 errorMessage.textContent = error.message;
@@ -71,7 +83,10 @@
 
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                let user = userCredential.user;
+                localStorage.setItem("userEmail", user.email);
                 localStorage.setItem("userType", userType);
+                
                 window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
             } catch (error) {
                 errorMessage.textContent = error.message;
