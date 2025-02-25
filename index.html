@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Tutora1</h1>
+        <h1>Welcome to Tutora4</h1>
         <p>The best place to connect tutors and students.</p>
         
         <input type="email" id="email" placeholder="Enter Email">
@@ -35,7 +35,13 @@
         <input type="number" id="sessionDuration" placeholder="Duration (hrs)">
         <input type="number" id="sessionPrice" placeholder="Price ($)">
         
-        <h3>Select Payment Method:</h3>
+        <h3>
+<h3>Select Payment Method:</h3>
+<label><input type="radio" name="paymentMethod" value="cashapp"> CashApp</label><br>
+<label><input type="radio" name="paymentMethod" value="zelle"> Zelle</label><br>
+<label><input type="radio" name="paymentMethod" value="paypal"> PayPal</label><br>
+<label><input type="radio" name="paymentMethod" value="stripe"> Stripe (Credit/Debit Card)</label><br>
+</h3>
         <input type="radio" name="paymentMethod" value="Stripe" checked> Stripe (Credit/Debit Card)<br>
         <input type="radio" name="paymentMethod" value="PayPal"> PayPal<br>
         <input type="radio" name="paymentMethod" value="CashApp"> CashApp<br>
