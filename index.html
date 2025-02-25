@@ -50,6 +50,12 @@
         <button id="createProfileBtn">Create Profile</button>
     </div>
 
+    <div id="timeSelectionModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:20px; border-radius:10px; box-shadow:0px 0px 10px rgba(0, 0, 0, 0.1);">
+        <h3>Select Available Time Slots</h3>
+        <div id="timeSlots"></div>
+        <button id="updateCalendarBtn">Update My Calendar</button>
+    </div>
+
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         var calendarEl = document.getElementById('calendar');
@@ -57,13 +63,14 @@
             initialView: 'dayGridMonth',
             selectable: true,
             dateClick: function(info) {
+                let modal = document.getElementById("timeSelectionModal");
+                let timeSlotsDiv = document.getElementById("timeSlots");
+                timeSlotsDiv.innerHTML = "";
                 let timeSlots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
                                  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
                                  '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
                                  '20:00', '20:30'];
                 
-                let timeSelection = document.createElement("div");
-                timeSelection.innerHTML = `<h3>Select Available Time Slots for ${info.dateStr}</h3>`;
                 timeSlots.forEach(time => {
                     let checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
@@ -72,30 +79,27 @@
                     let label = document.createElement("label");
                     label.htmlFor = checkbox.id;
                     label.textContent = time;
-                    timeSelection.appendChild(checkbox);
-                    timeSelection.appendChild(label);
-                    timeSelection.appendChild(document.createElement("br"));
+                    timeSlotsDiv.appendChild(checkbox);
+                    timeSlotsDiv.appendChild(label);
+                    timeSlotsDiv.appendChild(document.createElement("br"));
                 });
                 
-                let confirmButton = document.createElement("button");
-                confirmButton.textContent = "Save Availability";
-                confirmButton.onclick = function() {
+                document.getElementById("updateCalendarBtn").onclick = function() {
                     let selectedTimes = [];
-                    timeSelection.querySelectorAll("input:checked").forEach(checkbox => {
+                    timeSlotsDiv.querySelectorAll("input:checked").forEach(checkbox => {
                         selectedTimes.push(checkbox.value);
                     });
                     if (selectedTimes.length > 0) {
-                        let eventTitle = `Available: ${selectedTimes.join(", ")}`;
+                        let eventTitle = `Available: ${selectedTimes[0]} - ${selectedTimes[selectedTimes.length - 1]}`;
                         calendar.addEvent({ title: eventTitle, start: info.dateStr });
                         let listItem = document.createElement("li");
-                        listItem.textContent = `${info.dateStr} - ${selectedTimes.join(", ")}`;
+                        listItem.textContent = `${info.dateStr} - ${selectedTimes[0]} to ${selectedTimes[selectedTimes.length - 1]}`;
                         document.getElementById("selectedTimes").appendChild(listItem);
                     }
-                    document.body.removeChild(timeSelection);
+                    modal.style.display = "none";
                 };
                 
-                timeSelection.appendChild(confirmButton);
-                document.body.appendChild(timeSelection);
+                modal.style.display = "block";
             }
         });
         calendar.render();
