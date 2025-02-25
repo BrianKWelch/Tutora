@@ -13,6 +13,8 @@
         <h1>Welcome to Tutora</h1>
         <p>Login or Sign Up</p>
         <input type="email" id="email" placeholder="Enter Email">
+        <input type="text" id="firstName" placeholder="Enter First Name">
+        <input type="text" id="lastName" placeholder="Enter Last Name">
         <input type="password" id="password" placeholder="Enter Password">
         <select id="userType">
             <option value="tutor">Tutor</option>
@@ -28,7 +30,7 @@
         // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -76,6 +78,8 @@
         // Sign-up Event Listener
         document.getElementById("signUpBtn").addEventListener("click", async function() {
             let email = document.getElementById("email").value;
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
             let password = document.getElementById("password").value;
             let userType = document.getElementById("userType").value;
             let errorMessage = document.getElementById("errorMessage");
@@ -85,7 +89,17 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 let user = userCredential.user;
                 localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("firstName", firstName);
+                localStorage.setItem("lastName", lastName);
                 localStorage.setItem("userType", userType);
+                
+                // Store user details in Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    userType: userType
+                });
                 
                 window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
             } catch (error) {
