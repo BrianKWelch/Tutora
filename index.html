@@ -42,12 +42,13 @@
             overflow-y: auto;
             justify-content: center;
             align-items: center;
+            width: 100%;
         }
         #timeSlots div {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            width: 100%;
+            width: 90%;
         }
         #timeSlots label {
             display: flex;
@@ -110,6 +111,7 @@
                 timeSlots.forEach(time => {
                     let container = document.createElement("div");
                     container.classList.add("time-slot-item");
+                    container.style.width = "100%";
                     
                     let radio = document.createElement("input");
                     radio.type = "radio";
@@ -121,6 +123,7 @@
                     let label = document.createElement("label");
                     label.htmlFor = radio.id;
                     label.textContent = time;
+                    label.style.width = "80%";
                     
                     container.appendChild(radio);
                     container.appendChild(label);
