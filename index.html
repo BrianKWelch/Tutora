@@ -66,6 +66,7 @@
             let userType = document.getElementById("userType").value;
             auth.signInWithEmailAndPassword(email, password)
                 .then(userCredential => {
+                    localStorage.setItem("userType", userType); // Store user type
                     if (userType === "tutor") {
                         window.location.href = "tutor-dashboard.html";
                     } else {
@@ -81,6 +82,7 @@
             let userType = document.getElementById("userType").value;
             auth.createUserWithEmailAndPassword(email, password)
                 .then(userCredential => {
+                    localStorage.setItem("userType", userType); // Store user type
                     if (userType === "tutor") {
                         window.location.href = "tutor-dashboard.html";
                     } else {
