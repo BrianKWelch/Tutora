@@ -35,7 +35,7 @@
         #timeSlots {
             display: flex;
             flex-wrap: wrap;
-            gap: 3px;
+            gap: 8px;
             max-height: 200px;
             overflow-y: auto;
             justify-content: center;
@@ -43,9 +43,9 @@
         #timeSlots label {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
             font-size: 12px;
-            margin: 2px;
+            margin: 5px 0;
             cursor: pointer;
         }
         #timeSlots input[type="radio"] {
@@ -96,6 +96,7 @@
                     let container = document.createElement("div");
                     container.style.display = "flex";
                     container.style.alignItems = "center";
+                    container.style.marginBottom = "5px";
                     
                     let radio = document.createElement("input");
                     radio.type = "radio";
