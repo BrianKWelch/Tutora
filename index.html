@@ -52,10 +52,11 @@
             cursor: pointer;
             white-space: nowrap;
         }
-        #timeSlots input[type="checkbox"] {
+        #timeSlots input[type="radio"] {
             margin: 0;
             cursor: pointer;
             transform: scale(1.2);
+            display: inline-block;
         }
         #updateCalendarBtn {
             margin-top: 15px;
@@ -105,16 +106,18 @@
                     container.style.justifyContent = "center";
                     container.style.width = "100%";
                     
-                    let checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.value = time;
-                    checkbox.id = info.dateStr + '-' + time;
+                    let radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = "timeSlot";
+                    radio.value = time;
+                    radio.id = info.dateStr + '-' + time;
+                    radio.style.display = "inline-block";
                     
                     let label = document.createElement("label");
-                    label.htmlFor = checkbox.id;
+                    label.htmlFor = radio.id;
                     label.textContent = time;
                     
-                    container.appendChild(checkbox);
+                    container.appendChild(radio);
                     container.appendChild(label);
                     timeSlotsDiv.appendChild(container);
                 });
