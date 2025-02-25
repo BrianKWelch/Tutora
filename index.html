@@ -21,7 +21,7 @@
             z-index: 1000;
             width: 90%;
             max-width: 350px;
-            font-size: 16px;
+            font-size: 14px;
             text-align: center;
         }
         #modalOverlay {
@@ -37,30 +37,38 @@
         #timeSlots {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
             max-height: 300px;
             overflow-y: auto;
             justify-content: center;
             align-items: center;
         }
+        #timeSlots div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+        }
         #timeSlots label {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 16px;
-            margin: 6px 0;
+            gap: 10px;
+            font-size: 14px;
+            margin: 5px 0;
             cursor: pointer;
             white-space: nowrap;
+            width: 100%;
+            text-align: left;
         }
         #timeSlots input[type="radio"] {
             margin: 0;
             cursor: pointer;
-            transform: scale(1.4);
+            transform: scale(1.2);
             display: inline-block;
         }
         #updateCalendarBtn {
             margin-top: 15px;
-            padding: 10px 15px;
+            padding: 8px 12px;
             font-size: 16px;
             cursor: pointer;
         }
@@ -101,10 +109,7 @@
                 
                 timeSlots.forEach(time => {
                     let container = document.createElement("div");
-                    container.style.display = "flex";
-                    container.style.alignItems = "center";
-                    container.style.justifyContent = "center";
-                    container.style.width = "100%";
+                    container.classList.add("time-slot-item");
                     
                     let radio = document.createElement("input");
                     radio.type = "radio";
