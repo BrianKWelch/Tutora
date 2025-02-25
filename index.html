@@ -7,238 +7,88 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <style>
-        #timeSelectionModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
             background: white;
-            padding: 15px;
+            padding: 20px;
+            margin: auto;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            width: 90%;
-            max-width: 350px;
-            font-size: 14px;
-            text-align: center;
-            overflow: hidden;
         }
-        #modalOverlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        input, button {
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-        #timeSlots {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 250px;
-            overflow-y: auto;
-            justify-content: flex-start;
-            align-items: flex-start;
-            width: 100%;
-            padding: 0 15px;
-        }
-        #timeSlots div {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            width: 100%;
-            white-space: nowrap;
-        }
-        #timeSlots label {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            cursor: pointer;
-            width: auto;
-            text-align: left;
-            padding-left: 5px;
-        }
-        #timeSlots input[type="checkbox"] {
-            margin: 0 5px 0 0;
-            cursor: pointer;
-            transform: scale(1.2);
-            display: inline-block;
-            min-width: 20px;
-        }
-        #updateCalendarBtn {
-            margin-top: 15px;
-            padding: 8px 12px;
+            margin: 10px 0;
+            padding: 10px;
             font-size: 16px;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="loginContainer">
         <h1>Welcome to Tutora</h1>
-        <p>The best place to connect tutors and students.</p>
-        
-        <h2>Select Available Time Slots</h2>
-        <div id='calendar'></div>
-        <ul id="selectedTimes"></ul>
-    </div>
-
-    <div id="modalOverlay"></div>
-    <div id="timeSelectionModal">
-        <h3>Select Available Time Slots</h3>
-        <div id="timeSlots"></div>
-        <button id="updateCalendarBtn">Update My Calendar</button>
+        <p>Login or Sign Up</p>
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="password" id="password" placeholder="Enter Password">
+        <select id="userType">
+            <option value="tutor">Tutor</option>
+            <option value="student">Parent/Student</option>
+        </select>
+        <button id="loginBtn">Log In</button>
+        <button id="signUpBtn">Sign Up</button>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var calendarEl = document.getElementById('calendar');
-        var modal = document.getElementById("timeSelectionModal");
-        var overlay = document.getElementById("modalOverlay");
-        var timeSlotsDiv = document.getElementById("timeSlots");
-        var selectedTimes = [];
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            selectable: true,
-            dateClick: function(info) {
-                timeSlotsDiv.innerHTML = "";
-                let timeSlots = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-                                 '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
-                                 '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
-                                 '20:00', '20:30'];
-                
-                timeSlots.forEach(time => {
-                    let container = document.createElement("div");
-                    container.style.width = "100%";
-                    container.style.display = "flex";
-                    container.style.alignItems = "center";
-                    container.style.justifyContent = "flex-start";
-                    
-                    let checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.name = "timeSlot";
-                    checkbox.value = time;
-                    checkbox.id = info.dateStr + '-' + time;
-                    checkbox.style.display = "inline-block";
-                    
-                    let label = document.createElement("label");
-                    label.htmlFor = checkbox.id;
-                    label.textContent = time;
-                    
-                    container.appendChild(checkbox);
-                    container.appendChild(label);
-                    timeSlotsDiv.appendChild(container);
-                });
-                
-                modal.style.display = "block";
-                overlay.style.display = "block";
-            }
-        });
-        calendar.render();
-
-        document.getElementById("updateCalendarBtn").onclick = function() {
-            var selected = document.querySelectorAll("#timeSlots input[type='checkbox']:checked");
-            selected.forEach(function(slot) {
-                if (!selectedTimes.includes(slot.id)) {
-                    selectedTimes.push(slot.id);
-                    let listItem = document.createElement("li");
-                    listItem.textContent = slot.id.replace(/-/g, ' ');
-                    document.getElementById("selectedTimes").appendChild(listItem);
-                }
-            });
-            modal.style.display = "none";
-            overlay.style.display = "none";
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
-    });
-    </script>
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
 
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let userType = document.getElementById("userType").value;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    if (userType === "tutor") {
+                        window.location.href = "tutor-dashboard.html";
+                    } else {
+                        window.location.href = "student-dashboard.html";
+                    }
+                })
+                .catch(error => alert(error.message));
+        });
 
-        <h2>Book a Session</h2>
-        <input type="text" id="tutorId" placeholder="Tutor ID">
-        <input type="date" id="sessionDate">
-        <input type="number" id="sessionDuration" placeholder="Duration (hrs)">
-        <input type="number" id="sessionPrice" placeholder="Price ($)">
-        
-        <h3>Select Payment Method:</h3>
-        <div class="payment-options">
-            <label><input type="radio" name="paymentMethod" value="Stripe" checked> Stripe (Credit/Debit Card)</label><br>
-            <label><input type="radio" name="paymentMethod" value="PayPal"> PayPal</label><br>
-            <label><input type="radio" name="paymentMethod" value="CashApp"> CashApp</label><br>
-            <label><input type="radio" name="paymentMethod" value="Zelle"> Zelle</label><br>
-        </div>
-        
-        <button id="bookSessionBtn">Book Session</button>
-    </div>
-
-    <!-- Load Fixed Script -->
-    <script type="module" src="script.js"></script>
-
-    <div class="container">
-        <h1>Parent Dashboard</h1>
-        
-        <h2>Welcome, <span id="parentName">Parent</span></h2>
-        
-        <h3>Student Management</h3>
-        <ul id="studentList"></ul>
-        <button onclick="addStudent()">Add Student</button>
-        
-        <h3>Upcoming Sessions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Student</th>
-                    <th>Tutor</th>
-                    <th>Date</th>
-                    <th>Duration</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="upcomingSessions"></tbody>
-        </table>
-        
-        <h3>Past Sessions</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Student</th>
-                    <th>Tutor</th>
-                    <th>Date</th>
-                    <th>Duration</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="pastSessions"></tbody>
-        </table>
-        
-        <h3>Payment History</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Transaction ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="paymentHistory"></tbody>
-        </table>
-    </div>
-
-    <script>
-    function addStudent() {
-        let studentName = prompt("Enter Student Name:");
-        if (studentName) {
-            let studentList = document.getElementById("studentList");
-            let listItem = document.createElement("li");
-            listItem.textContent = studentName;
-            studentList.appendChild(listItem);
-            console.log("Added student:", studentName);
-        }
-    }
+        document.getElementById("signUpBtn").addEventListener("click", function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let userType = document.getElementById("userType").value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    if (userType === "tutor") {
+                        window.location.href = "tutor-dashboard.html";
+                    } else {
+                        window.location.href = "student-dashboard.html";
+                    }
+                })
+                .catch(error => alert(error.message));
+        });
     </script>
 </body>
 </html>
