@@ -62,7 +62,7 @@
             text-align: left;
             padding-left: 5px;
         }
-        #timeSlots input[type="radio"] {
+        #timeSlots input[type="checkbox"] {
             margin: 0 5px 0 0;
             cursor: pointer;
             transform: scale(1.2);
@@ -100,6 +100,7 @@
         var modal = document.getElementById("timeSelectionModal");
         var overlay = document.getElementById("modalOverlay");
         var timeSlotsDiv = document.getElementById("timeSlots");
+        var selectedTimes = [];
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             selectable: true,
@@ -114,18 +115,18 @@
                     let container = document.createElement("div");
                     container.style.width = "100%";
                     
-                    let radio = document.createElement("input");
-                    radio.type = "radio";
-                    radio.name = "timeSlot";
-                    radio.value = time;
-                    radio.id = info.dateStr + '-' + time;
-                    radio.style.display = "inline-block";
+                    let checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "timeSlot";
+                    checkbox.value = time;
+                    checkbox.id = info.dateStr + '-' + time;
+                    checkbox.style.display = "inline-block";
                     
                     let label = document.createElement("label");
-                    label.htmlFor = radio.id;
+                    label.htmlFor = checkbox.id;
                     label.textContent = time;
                     
-                    container.appendChild(radio);
+                    container.appendChild(checkbox);
                     container.appendChild(label);
                     timeSlotsDiv.appendChild(container);
                 });
@@ -137,6 +138,15 @@
         calendar.render();
 
         document.getElementById("updateCalendarBtn").onclick = function() {
+            var selected = document.querySelectorAll("#timeSlots input[type='checkbox']:checked");
+            selected.forEach(function(slot) {
+                if (!selectedTimes.includes(slot.id)) {
+                    selectedTimes.push(slot.id);
+                    let listItem = document.createElement("li");
+                    listItem.textContent = slot.id.replace(/-/g, ' ');
+                    document.getElementById("selectedTimes").appendChild(listItem);
+                }
+            });
             modal.style.display = "none";
             overlay.style.display = "none";
         };
