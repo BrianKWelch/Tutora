@@ -22,6 +22,7 @@
             width: 90%;
             max-width: 350px;
             font-size: 14px;
+            text-align: center;
         }
         #modalOverlay {
             display: none;
@@ -40,6 +41,7 @@
             max-height: 300px;
             overflow-y: auto;
             justify-content: center;
+            align-items: center;
         }
         #timeSlots label {
             display: flex;
@@ -99,7 +101,8 @@
                     let container = document.createElement("div");
                     container.style.display = "flex";
                     container.style.alignItems = "center";
-                    container.style.marginBottom = "8px";
+                    container.style.justifyContent = "center";
+                    container.style.width = "100%";
                     
                     let radio = document.createElement("input");
                     radio.type = "radio";
