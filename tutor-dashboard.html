@@ -3,138 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutora - Tutor Registration</title>
+    <title>Tutora - Online Tutoring</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .user-info {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background-color: #e8e4cf;
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .name-fields {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .name-fields input {
-            width: 45%;
-            padding: 10px;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 </head>
 <body>
-    <div class="container" id="tutorRegistration">
-        <div class="user-info">
-            <span id="userEmail">[User Email]</span>
-            <div class="name-fields">
-                <input type="text" id="firstName" placeholder="First Name" disabled>
-                <input type="text" id="lastName" placeholder="Last Name" disabled>
-            </div>
-        </div>
-        
-        <h1>Become a Tutor on Tutora</h1>
-        <p>Fill out the form below to submit your application.</p>
-        
-        <form id="tutorSignupForm">
-            <div style="display: flex; justify-content: space-between;">
-                <div>
-                    <label for="subject1">1st Subject You Want to Tutor:</label>
-                    <select id="subject1">
-                        <option value="math">Math</option>
-                        <option value="science">Science</option>
-                        <option value="english">English</option>
-                        <option value="history">History</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="gradeLevel1">Up to what grade level:</label>
-                    <select id="gradeLevel1">
-                        <option value="k">Kindergarten</option>
-                        <option value="1">1st Grade</option>
-                        <option value="2">2nd Grade</option>
-                        <option value="3">3rd Grade</option>
-                        <option value="4">4th Grade</option>
-                        <option value="5">5th Grade</option>
-                        <option value="6">6th Grade</option>
-                        <option value="7">7th Grade</option>
-                        <option value="8">8th Grade</option>
-                        <option value="9">9th Grade</option>
-                        <option value="10">10th Grade</option>
-                        <option value="11">11th Grade</option>
-                        <option value="12">12th Grade</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div style="display: flex; justify-content: space-between;">
-                <div>
-                    <label for="subject2">2nd Subject You Want to Tutor (Optional):</label>
-                    <select id="subject2">
-                        <option value="none">None</option>
-                        <option value="math">Math</option>
-                        <option value="science">Science</option>
-                        <option value="english">English</option>
-                        <option value="history">History</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="gradeLevel2">Up to what grade level:</label>
-                    <select id="gradeLevel2">
-                        <option value="none">None</option>
-                        <option value="k">Kindergarten</option>
-                        <option value="1">1st Grade</option>
-                        <option value="2">2nd Grade</option>
-                        <option value="3">3rd Grade</option>
-                        <option value="4">4th Grade</option>
-                        <option value="5">5th Grade</option>
-                        <option value="6">6th Grade</option>
-                        <option value="7">7th Grade</option>
-                        <option value="8">8th Grade</option>
-                        <option value="9">9th Grade</option>
-                        <option value="10">10th Grade</option>
-                        <option value="11">11th Grade</option>
-                        <option value="12">12th Grade</option>
-                    </select>
-                </div>
-            </div>
-            
-            <label for="qualification">Your Qualification:</label>
-            <select id="qualification">
-                <option value="certified">Certified Teacher - Must submit teaching certification</option>
-                <option value="college">Active College Student - Must upload current college ID</option>
-                <option value="graduate">College Graduate - Must upload diploma</option>
-                <option value="highschool">High School Graduate - Must pass qualification exam</option>
-            </select>
-            
-            <label>Upload Gov ID: DL/Passport</label>
-            <input type="file" id="uploadDL" accept="image/*,.pdf" required>
-            
-            <label>Upload Certifications/Degrees/College ID:</label>
-            <input type="file" id="uploadCert" accept="image/*,.pdf" required>
-            
-            <button type="submit">Submit Application</button>
-        </form>
+    <div class="container" id="loginContainer">
+        <h1>Welcome to Tutora</h1>
+        <p>Login or Sign Up</p>
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="text" id="firstName" placeholder="Enter First Name">
+        <input type="text" id="lastName" placeholder="Enter Last Name">
+        <input type="password" id="password" placeholder="Enter Password">
+        <select id="userType">
+            <option value="tutor">Tutor</option>
+            <option value="student">Parent/Student</option>
+        </select>
+        <button id="loginBtn">Log In</button>
+        <button id="signUpBtn">Sign Up</button>
+        <p id="errorMessage" style="color: red;"></p>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const userEmail = localStorage.getItem("userEmail");
-            const firstName = localStorage.getItem("firstName");
-            const lastName = localStorage.getItem("lastName");
-            
-            if (userEmail) document.getElementById("userEmail").textContent = userEmail;
-            if (firstName) document.getElementById("firstName").value = firstName;
-            if (lastName) document.getElementById("lastName").value = lastName;
+    <!-- Firebase SDK (Modules) -->
+    <script type="module">
+        // Import Firebase services
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
+            authDomain: "tutora-93be2.firebaseapp.com",
+            projectId: "tutora-93be2",
+            storageBucket: "tutora-93be2.firebaseapp.com",
+            messagingSenderId: "538400859458",
+            appId: "1:538400859458:web:1c45fe0364821442d854db",
+            measurementId: "G-SJ9FDWTHED"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Login Event Listener
+        document.getElementById("loginBtn").addEventListener("click", async function() {
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let userType = document.getElementById("userType").value;
+            let errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = "";
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                let user = userCredential.user;
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("userType", userType);
+
+                // Fetch user details from Firestore
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    localStorage.setItem("firstName", userDoc.data().firstName);
+                    localStorage.setItem("lastName", userDoc.data().lastName);
+                }
+                
+                window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            }
         });
 
-        document.getElementById("tutorSignupForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            alert("Application Submitted! You will be redirected to the waiting page.");
-            window.location.href = "tutor-waiting.html";
+        // Sign-up Event Listener
+        document.getElementById("signUpBtn").addEventListener("click", async function() {
+            let email = document.getElementById("email").value;
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
+            let password = document.getElementById("password").value;
+            let userType = document.getElementById("userType").value;
+            let errorMessage = document.getElementById("errorMessage");
+            errorMessage.textContent = "";
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                let user = userCredential.user;
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("firstName", firstName);
+                localStorage.setItem("lastName", lastName);
+                localStorage.setItem("userType", userType);
+                
+                // Store user details in Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    userType: userType
+                });
+                
+                window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
+            } catch (error) {
+                errorMessage.textContent = error.message;
+            }
         });
     </script>
 </body>
