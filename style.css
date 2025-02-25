@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 20px auto;
     background: white;
     padding: 20px;
@@ -20,12 +20,13 @@ h1, h2, h3 {
     color: #333;
 }
 
-input, select, button {
+input, select, button, textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    display: block;
 }
 
 button {
@@ -33,6 +34,7 @@ button {
     color: white;
     font-size: 16px;
     cursor: pointer;
+    border: none;
 }
 
 button:hover {
@@ -43,6 +45,17 @@ label {
     display: block;
     text-align: left;
     margin: 5px 0;
+    font-weight: bold;
+}
+
+.payment-options {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.payment-options label {
+    display: inline-block;
+    margin-right: 15px;
 }
 
 table {
@@ -60,4 +73,3 @@ th, td {
 th {
     background-color: #f4f4f4;
 }
-
