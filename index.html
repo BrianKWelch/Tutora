@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutora - Online Tutoring</title>
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Firebase SDK (Modules) -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 </head>
 <body>
     <div class="container">
@@ -22,58 +19,59 @@
         <button id="loginBtn">Log In</button>
         <button id="logoutBtn">Log Out</button>
 
-       <h2>Create Tutor Profile</h2>
-<input type="text" id="tutorFirstName" placeholder="First Name">
-<input type="text" id="tutorLastName" placeholder="Last Name">
+        <h2>Create Tutor Profile</h2>
+        <input type="text" id="tutorFirstName" placeholder="First Name">
+        <input type="text" id="tutorLastName" placeholder="Last Name">
 
-<label for="subject">Select Subjects:</label>
-<select id="subject" multiple>
-    <option value="Math">Math</option>
-    <option value="Science">Science</option>
-    <option value="English">English</option>
-    <option value="History">History</option>
-    <option value="ASVAB">ASVAB (Military Test)</option>
-</select>
+        <label for="subject">Select Subjects:</label>
+        <select id="subject" multiple>
+            <option value="Math">Math</option>
+            <option value="Science">Science</option>
+            <option value="English">English</option>
+            <option value="History">History</option>
+            <option value="ASVAB">ASVAB (Military Test)</option>
+        </select>
 
-<label for="gradeLevel">Select Grade Level:</label>
-<select id="gradeLevel">
-    <option value="K-5">K-5</option>
-    <option value="6th">6th Grade</option>
-    <option value="7th">7th Grade</option>
-    <option value="8th">8th Grade</option>
-    <option value="9th">9th Grade</option>
-    <option value="10th">10th Grade</option>
-    <option value="11th">11th Grade</option>
-    <option value="12th">12th Grade</option>
-</select>
+        <label for="gradeLevel">Select Grade Level:</label>
+        <select id="gradeLevel">
+            <option value="K-5">K-5</option>
+            <option value="6th">6th Grade</option>
+            <option value="7th">7th Grade</option>
+            <option value="8th">8th Grade</option>
+            <option value="9th">9th Grade</option>
+            <option value="10th">10th Grade</option>
+            <option value="11th">11th Grade</option>
+            <option value="12th">12th Grade</option>
+        </select>
 
-<label for="availability">Select Available Time Slots:</label>
-<div id="calendar"></div>
-<ul id="selectedTimes"></ul>
-<button id="addTimeSlot">Add Time Slot</button>
+        <h2>Select Available Time Slots</h2>
+        <div id='calendar'></div>
+        <ul id="selectedTimes"></ul>
+        <button id="createProfileBtn">Create Profile</button>
+    </div>
 
-<button id="createProfileBtn">Create Profile</button>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const selectedTimes = document.getElementById("selectedTimes");
-    const addTimeSlot = document.getElementById("addTimeSlot");
-
-    addTimeSlot.addEventListener("click", function() {
-        let date = prompt("Enter date (YYYY-MM-DD):");
-        let time = prompt("Enter time (HH:MM) - Must end in :00, :15, :30, or :45:");
-
-        if (!date || !time.match(/^([01]\\d|2[0-3]):(00|15|30|45)$/)) {
-            alert("Invalid time format! Time must be in HH:MM and end in :00, :15, :30, or :45.");
-            return;
-        }
-
-        let listItem = document.createElement("li");
-        listItem.textContent = `${date} ${time}`;
-        selectedTimes.appendChild(listItem);
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            selectable: true,
+            dateClick: function(info) {
+                let time = prompt("Enter time (HH:MM) - Must end in :00, :15, :30, or :45:");
+                if (!time.match(/^([01]\d|2[0-3]):(00|15|30|45)$/)) {
+                    alert("Invalid time format! Time must be in HH:MM and end in :00, :15, :30, or :45.");
+                    return;
+                }
+                let eventTitle = `Available - ${time}`;
+                calendar.addEvent({ title: eventTitle, start: info.dateStr });
+                let listItem = document.createElement("li");
+                listItem.textContent = `${info.dateStr} ${time}`;
+                document.getElementById("selectedTimes").appendChild(listItem);
+            }
+        });
+        calendar.render();
     });
-});
-</script>
+    </script>
 
 
         <h2>Book a Session</h2>
