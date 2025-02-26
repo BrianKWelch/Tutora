@@ -15,40 +15,12 @@
             padding: 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 800px;
             background: white;
             padding: 20px;
             margin: auto;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .section-header {
-            background-color: #8B0000;
-            color: white;
-            padding: 10px;
-            font-size: 20px;
-            text-align: left;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .form-group {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 48%;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .full-width {
-            width: 100% !important;
-        }
-        textarea {
-            height: 100px;
         }
         .user-info {
             background-color: #e0dbc8;
@@ -76,6 +48,22 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        .step-header {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .section {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -90,68 +78,77 @@
         </div>
 
         <!-- Step 1: Contact Information -->
-        <div class="section-header">Step 1: Contact Information</div>
-        <div class="form-group">
-            <select id="gender">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="prefer-not-say">Prefer not to say</option>
+        <div class="section">
+            <div class="step-header">Step 1: Contact Information</div>
+            <div>
+                <button>Male</button>
+                <button>Female</button>
+                <button>Prefer not to say</button>
+            </div>
+            <input type="text" placeholder="Address Line 1">
+            <input type="text" placeholder="Address Line 2">
+            <input type="text" placeholder="City">
+            <select>
+                <option>State</option>
+                <option>Ohio</option>
+                <option>California</option>
+                <option>Texas</option>
             </select>
-            <input type="text" id="address" placeholder="Address">
-        </div>
-        <div class="form-group">
-            <input type="text" id="cellPhone" placeholder="Cell Phone">
-            <input type="text" id="otherPhone" placeholder="Other Phone">
-        </div>
-        <div class="form-group">
-            <input type="text" id="city" placeholder="City">
-            <select id="state">
-                <option value="">Select State</option>
-                <option value="Ohio">Ohio</option>
-                <option value="New York">New York</option>
-                <option value="California">California</option>
-                <!-- Add more states as needed -->
-            </select>
-            <input type="text" id="zipCode" placeholder="ZIP Code">
+            <input type="text" placeholder="ZIP Code">
+            <input type="text" placeholder="Cell Phone">
+            <input type="text" placeholder="Other Phone">
         </div>
 
-        <!-- Step 2: Educational History and Credentials -->
-        <div class="section-header">Step 2: Educational History and Credentials</div>
-        <div class="form-group">
-            <select id="educationLevel">
-                <option value="">Select Education Level</option>
-                <option value="highschool">High School Diploma</option>
-                <option value="associate">Associate Degree</option>
-                <option value="bachelor">Bachelor’s Degree</option>
-                <option value="master">Master’s Degree</option>
-                <option value="phd">PhD</option>
+        <!-- Step 2: Educational History -->
+        <div class="section">
+            <div class="step-header">Step 2: Educational History and Credentials</div>
+            <select>
+                <option>Select Education Level</option>
+                <option>High School</option>
+                <option>Associate Degree</option>
+                <option>Bachelor’s Degree</option>
+                <option>Master’s Degree</option>
+                <option>Doctorate</option>
             </select>
-            <input type="text" id="major" placeholder="Major/Degree(s)">
+            <input type="text" placeholder="Major/Degree(s)">
+            <input type="text" placeholder="Graduation Date/Expected">
+            <input type="text" placeholder="School Name">
+            <input type="text" placeholder="Teaching Credentials (Optional)">
+            <textarea placeholder="Why are you a good tutor?"></textarea>
+            <textarea placeholder="Copy and paste your resume below"></textarea>
+            <button id="continueToStep3">Continue to Step 3: Select Subjects/Classes</button>
         </div>
-        <div class="form-group">
-            <input type="date" id="gradDate" placeholder="Graduation Date/Expected">
-            <input type="text" id="school" placeholder="School Name">
-        </div>
-        <div class="form-group">
-            <input type="text" id="credentials" placeholder="Teaching Credentials (Optional)">
-        </div>
-        <div class="form-group">
-            <textarea id="whyTutor" class="full-width" placeholder="Why are you a good tutor?"></textarea>
-        </div>
-        <div class="form-group">
-            <textarea id="resume" class="full-width" placeholder="Copy and paste your resume here..."></textarea>
+
+        <!-- Step 3: Subjects Selection (Initially Hidden) -->
+        <div class="section" id="step3" style="display: none;">
+            <div class="step-header">Step 3: Select Subjects/Classes</div>
+            <div id="subjectsList">
+                <button class="collapsible">+ Kindergarten through 6th Grade</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> Math</label>
+                    <label><input type="radio" name="subject"> Science</label>
+                    <label><input type="radio" name="subject"> Reading</label>
+                </div>
+                <button class="collapsible">+ Biology</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> General Biology</label>
+                    <label><input type="radio" name="subject"> AP Biology</label>
+                </div>
+                <button class="collapsible">+ Chemistry</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> General Chemistry</label>
+                    <label><input type="radio" name="subject"> Organic Chemistry</label>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Firebase SDK (Modules) -->
     <script type="module">
-        // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
             authDomain: "tutora-93be2.firebaseapp.com",
@@ -162,28 +159,26 @@
             measurementId: "G-SJ9FDWTHED"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Fetch user info and update dashboard
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById("userEmail").textContent = user.email;
-
-                // Fetch first & last name from Firestore
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
                     document.getElementById("firstName").value = userDoc.data().firstName;
                     document.getElementById("lastName").value = userDoc.data().lastName;
-                } else {
-                    document.getElementById("firstName").value = "Unknown";
-                    document.getElementById("lastName").value = "User";
                 }
             } else {
-                window.location.href = "index.html"; // Redirect to login if not authenticated
+                window.location.href = "index.html";
             }
+        });
+
+        document.getElementById("continueToStep3").addEventListener("click", function() {
+            document.querySelector(".section").style.display = "none";
+            document.getElementById("step3").style.display = "block";
         });
     </script>
 </body>
