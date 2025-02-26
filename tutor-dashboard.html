@@ -184,6 +184,13 @@
                 </div>
             </div>
         </div>
+        <script>
+    // Collapsible functionality for Math section
+    document.querySelector(".collapsible").addEventListener("click", function() {
+        let content = this.nextElementSibling;
+        content.style.display = content.style.display === "block" ? "none" : "block";
+    });
+</script>
     </div>
     <!-- Firebase SDK (Modules) -->
     <script type="module">
