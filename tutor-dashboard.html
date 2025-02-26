@@ -479,6 +479,11 @@
             content.style.display = content.style.display === "block" ? "none" : "block";
         });
     });
+     document.getElementById("collapseAndProceed").addEventListener("click", function() {
+        document.getElementById("step3").style.display = "none"; // Hide Step 3
+        document.getElementById("step4").style.display = "block"; // Show Step 4
+        window.location.href = "#step4"; // Navigate to Step 4
+    });
 </script>
 
     </div>
