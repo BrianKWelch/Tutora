@@ -136,7 +136,68 @@
 
         <!-- Step 3 -->
         <div class="step-header">Step 3. Select Subjects & Classes</div>
-        <div id="step3" style="display:none;">
+        <div id="step3">
+            <div class="subject-category" onclick="toggleSubjects('k6')">+ Kindergarten through 6th Grade</div>
+            <div id="k6" class="subject-list">
+                <input type="checkbox"> General Studies<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('biology')">+ Biology</div>
+            <div id="biology" class="subject-list">
+                <input type="checkbox"> General Biology<br>
+                <input type="checkbox"> AP Biology<br>
+                <input type="checkbox"> College Biology<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('business')">+ Business</div>
+            <div id="business" class="subject-list">
+                <input type="checkbox"> Accounting<br>
+                <input type="checkbox"> Finance<br>
+                <input type="checkbox"> Marketing<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('chemistry')">+ Chemistry</div>
+            <div id="chemistry" class="subject-list">
+                <input type="checkbox"> General Chemistry<br>
+                <input type="checkbox"> AP Chemistry<br>
+                <input type="checkbox"> College Chemistry<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('computer_science')">+ Computer Science</div>
+            <div id="computer_science" class="subject-list">
+                <input type="checkbox"> Programming (Python, Java, C++)<br>
+                <input type="checkbox"> Web Development<br>
+                <input type="checkbox"> Data Science<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('engineering')">+ Engineering</div>
+            <div id="engineering" class="subject-list">
+                <input type="checkbox"> Mechanical Engineering<br>
+                <input type="checkbox"> Electrical Engineering<br>
+                <input type="checkbox"> Civil Engineering<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('foreign_language')">+ Foreign Language</div>
+            <div id="foreign_language" class="subject-list">
+                <input type="checkbox"> Spanish<br>
+                <input type="checkbox"> French<br>
+                <input type="checkbox"> German<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('humanities')">+ Humanities</div>
+            <div id="humanities" class="subject-list">
+                <input type="checkbox"> History<br>
+                <input type="checkbox"> Philosophy<br>
+                <input type="checkbox"> Political Science<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('major_classes')">+ Major Classes</div>
+            <div id="major_classes" class="subject-list">
+                <input type="checkbox"> Economics<br>
+                <input type="checkbox"> Psychology<br>
+                <input type="checkbox"> Sociology<br>
+            </div>
+
             <div class="subject-category" onclick="toggleSubjects('math')">+ Math</div>
             <div id="math" class="subject-list">
                 <input type="checkbox"> Algebra<br>
@@ -144,19 +205,33 @@
                 <input type="checkbox"> Trigonometry<br>
                 <input type="checkbox"> Calculus<br>
             </div>
-            
-            <div class="subject-category" onclick="toggleSubjects('science')">+ Science</div>
-            <div id="science" class="subject-list">
-                <input type="checkbox"> Biology<br>
-                <input type="checkbox"> Chemistry<br>
-                <input type="checkbox"> Physics<br>
+
+            <div class="subject-category" onclick="toggleSubjects('physics')">+ Physics</div>
+            <div id="physics" class="subject-list">
+                <input type="checkbox"> General Physics<br>
+                <input type="checkbox"> AP Physics<br>
+                <input type="checkbox"> College Physics<br>
             </div>
 
-            <div class="subject-category" onclick="toggleSubjects('english')">+ English</div>
-            <div id="english" class="subject-list">
-                <input type="checkbox"> Literature<br>
-                <input type="checkbox"> Grammar<br>
-                <input type="checkbox"> Writing<br>
+            <div class="subject-category" onclick="toggleSubjects('statistics')">+ Statistics</div>
+            <div id="statistics" class="subject-list">
+                <input type="checkbox"> Probability<br>
+                <input type="checkbox"> Data Analysis<br>
+                <input type="checkbox"> College Statistics<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('test_prep')">+ Test Preparation</div>
+            <div id="test_prep" class="subject-list">
+                <input type="checkbox"> SAT<br>
+                <input type="checkbox"> ACT<br>
+                <input type="checkbox"> GRE<br>
+            </div>
+
+            <div class="subject-category" onclick="toggleSubjects('arts_sports')">+ The Arts and Sports</div>
+            <div id="arts_sports" class="subject-list">
+                <input type="checkbox"> Music Theory<br>
+                <input type="checkbox"> Painting & Drawing<br>
+                <input type="checkbox"> Sports Coaching<br>
             </div>
         </div>
     </div>
