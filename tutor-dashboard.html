@@ -57,6 +57,12 @@
             margin-bottom: 10px;
             border-radius: 5px;
         }
+        .step-container {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
         .subject-category {
             background-color: #28a745;
             color: white;
@@ -90,91 +96,47 @@
             </div>
         </div>
 
-        <!-- Step 1: Contact Information -->
-        <div class="section-header">Step 1: Contact Information</div>
-        <div class="form-group">
-            <select id="gender">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="prefer-not-say">Prefer not to say</option>
-            </select>
-            <input type="text" id="address" placeholder="Address">
-        </div>
-        <div class="form-group">
-            <input type="text" id="cellPhone" placeholder="Cell Phone">
-            <input type="text" id="otherPhone" placeholder="Other Phone">
-        </div>
-        <div class="form-group">
-            <input type="text" id="city" placeholder="City">
-            <select id="state">
-                <option value="">Select State</option>
+        <!-- Step 1 -->
+        <div class="step-header">Step 1. Contact Information</div>
+        <div class="step-container">
+            <button class="btn">Male</button>
+            <button class="btn">Female</button>
+            <button class="btn">Prefer not to say</button>
+            <br><br>
+            <input type="text" placeholder="Address">
+            <input type="text" placeholder="Address Line 2">
+            <input type="text" placeholder="City">
+            <select>
                 <option value="Ohio">Ohio</option>
-                <option value="New York">New York</option>
-                <option value="California">California</option>
-                <!-- Add more states as needed -->
             </select>
-            <input type="text" id="zipCode" placeholder="ZIP Code">
+            <input type="text" placeholder="ZIP Code">
+            <input type="text" placeholder="Cell Phone">
+            <input type="text" placeholder="Other Phone">
         </div>
 
-
-               <!-- Step 2: Educational History and Credentials -->
-        <div class="section-header">Step 2: Educational History and Credentials</div>
-        <div class="form-group">
-            <select id="educationLevel">
+        <!-- Step 2 -->
+        <div class="step-header">Step 2. Educational History & Credentials</div>
+        <div class="step-container">
+            <select>
                 <option value="">Select Education Level</option>
-                <option value="highschool">High School Diploma</option>
-                <option value="associate">Associate Degree</option>
-                <option value="bachelor">Bachelor’s Degree</option>
-                <option value="master">Master’s Degree</option>
-                <option value="phd">PhD</option>
+                <option value="High School">High School</option>
+                <option value="Associate">Associate</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+                <option value="Doctorate">Doctorate</option>
             </select>
-            <input type="text" id="major" placeholder="Major/Degree(s)">
+            <input type="text" placeholder="Major/Degree(s)">
+            <input type="date" placeholder="Graduation Date">
+            <input type="text" placeholder="School">
+            <input type="text" placeholder="Teaching Credentials (Optional)">
+            <textarea placeholder="Why are you a good tutor?"></textarea>
+            <textarea placeholder="Copy & Paste Resume"></textarea>
+            <button id="continueStep3">Continue to Step 3: Select Subjects/Classes</button>
         </div>
-        <div class="form-group">
-            <input type="date" id="gradDate" placeholder="Graduation Date/Expected">
-            <input type="text" id="school" placeholder="School Name">
-        </div>
-        <div class="form-group">
-            <input type="text" id="credentials" placeholder="Teaching Credentials (Optional)">
-        </div>
-        <div class="form-group">
-            <textarea id="whyTutor" class="full-width" placeholder="Why are you a good tutor?"></textarea>
-        </div>
-        <div class="form-group">
-            <textarea id="resume" class="full-width" placeholder="Copy and paste your resume here..."></textarea>
-        </div>
-    </div>
 
         <!-- Step 3 -->
         <div class="step-header">Step 3. Select Subjects & Classes</div>
-        <div id="step3" style="display: none;">
-            <div class="subject-category" onclick="toggleSubjects('k6')">+ Kindergarten through 6th Grade</div>
-            <div id="k6" class="subject-list">
-                <input type="checkbox"> General Studies<br>
-            </div>
-
-            <div class="subject-category" onclick="toggleSubjects('biology')">+ Biology</div>
-            <div id="biology" class="subject-list">
-                <input type="checkbox"> General Biology<br>
-                <input type="checkbox"> AP Biology<br>
-                <input type="checkbox"> College Biology<br>
-            </div>
-
-            <div class="subject-category" onclick="toggleSubjects('business')">+ Business</div>
-            <div id="business" class="subject-list">
-                <input type="checkbox"> Accounting<br>
-                <input type="checkbox"> Finance<br>
-                <input type="checkbox"> Marketing<br>
-            </div>
-
-            <div class="subject-category" onclick="toggleSubjects('chemistry')">+ Chemistry</div>
-            <div id="chemistry" class="subject-list">
-                <input type="checkbox"> General Chemistry<br>
-                <input type="checkbox"> AP Chemistry<br>
-                <input type="checkbox"> College Chemistry<br>
-            </div>
-
+        <div id="step3" style="display:none;">
             <div class="subject-category" onclick="toggleSubjects('math')">+ Math</div>
             <div id="math" class="subject-list">
                 <input type="checkbox"> Algebra<br>
@@ -182,12 +144,19 @@
                 <input type="checkbox"> Trigonometry<br>
                 <input type="checkbox"> Calculus<br>
             </div>
+            
+            <div class="subject-category" onclick="toggleSubjects('science')">+ Science</div>
+            <div id="science" class="subject-list">
+                <input type="checkbox"> Biology<br>
+                <input type="checkbox"> Chemistry<br>
+                <input type="checkbox"> Physics<br>
+            </div>
 
-            <div class="subject-category" onclick="toggleSubjects('physics')">+ Physics</div>
-            <div id="physics" class="subject-list">
-                <input type="checkbox"> General Physics<br>
-                <input type="checkbox"> AP Physics<br>
-                <input type="checkbox"> College Physics<br>
+            <div class="subject-category" onclick="toggleSubjects('english')">+ English</div>
+            <div id="english" class="subject-list">
+                <input type="checkbox"> Literature<br>
+                <input type="checkbox"> Grammar<br>
+                <input type="checkbox"> Writing<br>
             </div>
         </div>
     </div>
@@ -215,14 +184,10 @@
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById("userEmail").textContent = user.email;
-
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
                     document.getElementById("firstName").value = userDoc.data().firstName;
                     document.getElementById("lastName").value = userDoc.data().lastName;
-                } else {
-                    document.getElementById("firstName").value = "Unknown";
-                    document.getElementById("lastName").value = "User";
                 }
             } else {
                 window.location.href = "index.html";
@@ -234,9 +199,9 @@
             subjectDiv.style.display = (subjectDiv.style.display === "none") ? "block" : "none";
         }
 
-        function goToStep3() {
+        document.getElementById("continueStep3").addEventListener("click", function () {
             document.getElementById("step3").style.display = "block";
-        }
+        });
     </script>
 </body>
 </html>
