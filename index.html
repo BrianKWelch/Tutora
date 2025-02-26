@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutora - Online Tutoring</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
 </head>
 <body>
     <div class="container" id="loginContainer">
@@ -27,7 +25,6 @@
 
     <!-- Firebase SDK (Modules) -->
     <script type="module">
-        // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
@@ -43,7 +40,6 @@
             measurementId: "G-SJ9FDWTHED"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -59,17 +55,20 @@
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 let user = userCredential.user;
-                localStorage.setItem("userEmail", user.email);
-                localStorage.setItem("userType", userType);
 
                 // Fetch user details from Firestore
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
-                    localStorage.setItem("firstName", userDoc.data().firstName);
-                    localStorage.setItem("lastName", userDoc.data().lastName);
+                    const userData = userDoc.data();
+                    localStorage.setItem("firstName", userData.firstName || "Unknown");
+                    localStorage.setItem("lastName", userData.lastName || "User");
+                    localStorage.setItem("userEmail", user.email);
+                    localStorage.setItem("userType", userType);
+                    
+                    window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
+                } else {
+                    errorMessage.textContent = "User data not found!";
                 }
-                
-                window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
             } catch (error) {
                 errorMessage.textContent = error.message;
             }
@@ -88,11 +87,7 @@
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 let user = userCredential.user;
-                localStorage.setItem("userEmail", user.email);
-                localStorage.setItem("firstName", firstName);
-                localStorage.setItem("lastName", lastName);
-                localStorage.setItem("userType", userType);
-                
+
                 // Store user details in Firestore
                 await setDoc(doc(db, "users", user.uid), {
                     firstName: firstName,
@@ -100,6 +95,12 @@
                     email: email,
                     userType: userType
                 });
+
+                // Store locally & redirect
+                localStorage.setItem("userEmail", user.email);
+                localStorage.setItem("firstName", firstName);
+                localStorage.setItem("lastName", lastName);
+                localStorage.setItem("userType", userType);
                 
                 window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
             } catch (error) {
