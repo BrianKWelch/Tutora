@@ -64,6 +64,9 @@
             margin-bottom: 20px;
             text-align: left;
         }
+        .hidden-content {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -80,47 +83,49 @@
         <!-- Step 1: Contact Information -->
         <div class="section">
             <div class="step-header">Step 1: Contact Information</div>
-            <div>
+            <div id="step1Content">
                 <button>Male</button>
                 <button>Female</button>
                 <button>Prefer not to say</button>
+                <input type="text" placeholder="Address Line 1">
+                <input type="text" placeholder="Address Line 2">
+                <input type="text" placeholder="City">
+                <select>
+                    <option>State</option>
+                    <option>Ohio</option>
+                    <option>California</option>
+                    <option>Texas</option>
+                </select>
+                <input type="text" placeholder="ZIP Code">
+                <input type="text" placeholder="Cell Phone">
+                <input type="text" placeholder="Other Phone">
             </div>
-            <input type="text" placeholder="Address Line 1">
-            <input type="text" placeholder="Address Line 2">
-            <input type="text" placeholder="City">
-            <select>
-                <option>State</option>
-                <option>Ohio</option>
-                <option>California</option>
-                <option>Texas</option>
-            </select>
-            <input type="text" placeholder="ZIP Code">
-            <input type="text" placeholder="Cell Phone">
-            <input type="text" placeholder="Other Phone">
         </div>
 
         <!-- Step 2: Educational History -->
         <div class="section">
             <div class="step-header">Step 2: Educational History and Credentials</div>
-            <select>
-                <option>Select Education Level</option>
-                <option>High School</option>
-                <option>Associate Degree</option>
-                <option>Bachelor’s Degree</option>
-                <option>Master’s Degree</option>
-                <option>Doctorate</option>
-            </select>
-            <input type="text" placeholder="Major/Degree(s)">
-            <input type="text" placeholder="Graduation Date/Expected">
-            <input type="text" placeholder="School Name">
-            <input type="text" placeholder="Teaching Credentials (Optional)">
-            <textarea placeholder="Why are you a good tutor?"></textarea>
-            <textarea placeholder="Copy and paste your resume below"></textarea>
-            <button id="continueToStep3">Continue to Step 3: Select Subjects/Classes</button>
+            <div id="step2Content">
+                <select>
+                    <option>Select Education Level</option>
+                    <option>High School</option>
+                    <option>Associate Degree</option>
+                    <option>Bachelor’s Degree</option>
+                    <option>Master’s Degree</option>
+                    <option>Doctorate</option>
+                </select>
+                <input type="text" placeholder="Major/Degree(s)">
+                <input type="text" placeholder="Graduation Date/Expected">
+                <input type="text" placeholder="School Name">
+                <input type="text" placeholder="Teaching Credentials (Optional)">
+                <textarea placeholder="Why are you a good tutor?"></textarea>
+                <textarea placeholder="Copy and paste your resume below"></textarea>
+                <button id="continueToStep3">Continue to Step 3: Select Subjects/Classes</button>
+            </div>
         </div>
 
         <!-- Step 3: Subjects Selection (Initially Hidden) -->
-        <div class="section" id="step3" style="display: none;">
+        <div class="section hidden-content" id="step3">
             <div class="step-header">Step 3: Select Subjects/Classes</div>
             <div id="subjectsList">
                 <button class="collapsible">+ Kindergarten through 6th Grade</button>
@@ -177,7 +182,8 @@
         });
 
         document.getElementById("continueToStep3").addEventListener("click", function() {
-            document.querySelector(".section").style.display = "none";
+            document.getElementById("step1Content").style.display = "none";
+            document.getElementById("step2Content").style.display = "none";
             document.getElementById("step3").style.display = "block";
         });
     </script>
