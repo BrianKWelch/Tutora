@@ -15,7 +15,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             background: white;
             padding: 20px;
             margin: auto;
@@ -33,20 +33,66 @@
             font-weight: bold;
             margin: 0;
         }
-        .name-container {
+        .name-container, .contact-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 10px;
         }
-        .name-container input {
-            width: 150px;
+        .name-container input, .contact-container input, .contact-container select {
+            width: 200px;
             padding: 10px;
             font-size: 16px;
             text-align: center;
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #f9f9f9;
+        }
+        .contact-info {
+            background: #8B0000;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .contact-form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 15px;
+            background: #ede6d1;
+            border-radius: 10px;
+        }
+        .contact-form label {
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+        }
+        .contact-form input, .contact-form select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-gender {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .contact-gender button {
+            background: green;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+        .contact-gender button.active {
+            background: darkgreen;
         }
     </style>
 </head>
@@ -59,6 +105,35 @@
                 <input type="text" id="firstName" readonly>
                 <input type="text" id="lastName" readonly>
             </div>
+        </div>
+
+        <!-- Step 1: Contact Information -->
+        <div class="contact-info">Step 1. Contact Information</div>
+        <div class="contact-form">
+            <!-- Gender Selection -->
+            <div class="contact-gender">
+                <button id="maleBtn">Male</button>
+                <button id="femaleBtn">Female</button>
+                <button id="otherBtn">Prefer not to say</button>
+            </div>
+            
+            <!-- Address Section -->
+            <input type="text" id="address1" placeholder="Street Address">
+            <input type="text" id="address2" placeholder="Address Line 2">
+            <input type="text" id="city" placeholder="City">
+            <select id="state">
+                <option value="Ohio">Ohio</option>
+                <option value="Indiana">Indiana</option>
+                <option value="California">California</option>
+                <option value="Texas">Texas</option>
+            </select>
+            <input type="text" id="zip" placeholder="ZIP Code">
+
+            <!-- Phone Numbers -->
+            <label>Cell Phone</label>
+            <input type="text" id="cellPhone" placeholder="(###) ###-####">
+            <label>Other Phone</label>
+            <input type="text" id="otherPhone" placeholder="(###) ###-####">
         </div>
 
         <h2>Welcome to Your Tutor Dashboard</h2>
@@ -109,6 +184,14 @@
                 console.warn("No authenticated user found. Redirecting to login.");
                 window.location.href = "index.html";
             }
+        });
+
+        // Gender Selection Button Logic
+        document.querySelectorAll('.contact-gender button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.contact-gender button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
         });
     </script>
 </body>
