@@ -49,27 +49,23 @@
             background-color: #f9f9f9;
         }
         .step-header {
-            background-color: #a94442;
+            background-color: #8B0000;
             color: white;
             padding: 10px;
             font-size: 20px;
-            margin-top: 20px;
+            font-weight: bold;
+            border-radius: 5px;
             text-align: left;
         }
-        .subject-list {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            font-size: 18px;
-            margin: 5px;
-            cursor: pointer;
+        .section {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             text-align: left;
         }
-        .subject-classes {
+        .hidden-content {
             display: none;
-            padding-left: 20px;
-            background: #eef;
-            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -84,65 +80,70 @@
             </div>
         </div>
 
-        <!-- Step 1 -->
-        <div class="step-header">Step 1. Contact Information</div>
-        <div id="step1">
-            <label>Cell Phone:</label>
-            <input type="text" id="cellPhone">
-            <label>Other Phone:</label>
-            <input type="text" id="otherPhone">
-            <label>Address:</label>
-            <input type="text" id="address">
+        <!-- Step 1: Contact Information -->
+        <div class="section">
+            <div class="step-header">Step 1: Contact Information</div>
+            <div id="step1Content">
+                <button>Male</button>
+                <button>Female</button>
+                <button>Prefer not to say</button>
+                <input type="text" placeholder="Address Line 1">
+                <input type="text" placeholder="Address Line 2">
+                <input type="text" placeholder="City">
+                <select>
+                    <option>State</option>
+                    <option>Ohio</option>
+                    <option>California</option>
+                    <option>Texas</option>
+                </select>
+                <input type="text" placeholder="ZIP Code">
+                <input type="text" placeholder="Cell Phone">
+                <input type="text" placeholder="Other Phone">
+            </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="step-header">Step 2. Educational History and Credentials</div>
-        <div id="step2">
-            <label>Education Level:</label>
-            <select id="educationLevel">
-                <option value="High School">High School</option>
-                <option value="Associate Degree">Associate Degree</option>
-                <option value="Bachelor's Degree">Bachelor's Degree</option>
-                <option value="Master's Degree">Master's Degree</option>
-                <option value="PhD">PhD</option>
-            </select>
-            <label>Major/Degree:</label>
-            <input type="text" id="major">
-            <label>Graduation Date:</label>
-            <input type="date" id="gradDate">
-            <label>School Name:</label>
-            <input type="text" id="schoolName">
-            <label>Teaching Credentials (if any):</label>
-            <input type="text" id="teachingCredentials">
-            <label>Why are you a good tutor?</label>
-            <textarea id="tutorReason"></textarea>
-            <label>Paste Your Resume:</label>
-            <textarea id="resume"></textarea>
-            <button id="continueStep3">Continue to Step 3: Select Subjects/Classes</button>
+        <!-- Step 2: Educational History -->
+        <div class="section">
+            <div class="step-header">Step 2: Educational History and Credentials</div>
+            <div id="step2Content">
+                <select>
+                    <option>Select Education Level</option>
+                    <option>High School</option>
+                    <option>Associate Degree</option>
+                    <option>Bachelor’s Degree</option>
+                    <option>Master’s Degree</option>
+                    <option>Doctorate</option>
+                </select>
+                <input type="text" placeholder="Major/Degree(s)">
+                <input type="text" placeholder="Graduation Date/Expected">
+                <input type="text" placeholder="School Name">
+                <input type="text" placeholder="Teaching Credentials (Optional)">
+                <textarea placeholder="Why are you a good tutor?"></textarea>
+                <textarea placeholder="Copy and paste your resume below"></textarea>
+                <button id="continueToStep3">Continue to Step 3: Select Subjects/Classes</button>
+            </div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="step-header">Step 3. Select Subjects/Classes</div>
-        <div id="step3" style="display: none;">
-            <div class="subject-list" onclick="toggleClasses('math')">+ Math</div>
-            <div id="math" class="subject-classes">
-                <label><input type="checkbox"> Algebra</label><br>
-                <label><input type="checkbox"> Geometry</label><br>
-                <label><input type="checkbox"> Trigonometry</label><br>
-            </div>
-            
-            <div class="subject-list" onclick="toggleClasses('science')">+ Science</div>
-            <div id="science" class="subject-classes">
-                <label><input type="checkbox"> Biology</label><br>
-                <label><input type="checkbox"> Chemistry</label><br>
-                <label><input type="checkbox"> Physics</label><br>
-            </div>
-
-            <div class="subject-list" onclick="toggleClasses('testprep')">+ Test Preparation</div>
-            <div id="testprep" class="subject-classes">
-                <label><input type="checkbox"> SAT</label><br>
-                <label><input type="checkbox"> ACT</label><br>
-                <label><input type="checkbox"> ASVAB</label><br>
+        <!-- Step 3: Subjects Selection (Initially Hidden) -->
+        <div class="section hidden-content" id="step3">
+            <div class="step-header">Step 3: Select Subjects/Classes</div>
+            <div id="subjectsList">
+                <button class="collapsible">+ Kindergarten through 6th Grade</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> Math</label>
+                    <label><input type="radio" name="subject"> Science</label>
+                    <label><input type="radio" name="subject"> Reading</label>
+                </div>
+                <button class="collapsible">+ Biology</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> General Biology</label>
+                    <label><input type="radio" name="subject"> AP Biology</label>
+                </div>
+                <button class="collapsible">+ Chemistry</button>
+                <div class="subject-content">
+                    <label><input type="radio" name="subject"> General Chemistry</label>
+                    <label><input type="radio" name="subject"> Organic Chemistry</label>
+                </div>
             </div>
         </div>
     </div>
@@ -153,7 +154,16 @@
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-        const firebaseConfig = { /* Your Firebase Config */ };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
+            authDomain: "tutora-93be2.firebaseapp.com",
+            projectId: "tutora-93be2",
+            storageBucket: "tutora-93be2.firebaseapp.com",
+            messagingSenderId: "538400859458",
+            appId: "1:538400859458:web:1c45fe0364821442d854db",
+            measurementId: "G-SJ9FDWTHED"
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -171,14 +181,9 @@
             }
         });
 
-        function toggleClasses(subjectId) {
-            let subjectDiv = document.getElementById(subjectId);
-            subjectDiv.style.display = subjectDiv.style.display === "block" ? "none" : "block";
-        }
-
-        document.getElementById("continueStep3").addEventListener("click", function() {
-            document.getElementById("step1").style.display = "none";
-            document.getElementById("step2").style.display = "none";
+        document.getElementById("continueToStep3").addEventListener("click", function() {
+            document.getElementById("step1Content").style.display = "none";
+            document.getElementById("step2Content").style.display = "none";
             document.getElementById("step3").style.display = "block";
         });
     </script>
