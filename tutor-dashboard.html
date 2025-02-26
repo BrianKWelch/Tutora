@@ -22,92 +22,141 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
+        .user-info {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .user-info h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .name-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .name-container input {
+            width: 150px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
         .step-header {
             background-color: #8B0000;
             color: white;
             padding: 10px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
+            margin-bottom: 10px;
             border-radius: 5px;
-            text-align: left;
         }
-        .subject-button {
-            width: 100%;
-            background-color: green;
+        .step-container {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .subject-category {
+            background-color: #28a745;
             color: white;
             padding: 10px;
             font-size: 18px;
             font-weight: bold;
-            border: none;
-            text-align: left;
+            margin: 5px 0;
             cursor: pointer;
-            margin-top: 5px;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .subject-button:focus {
-            outline: none;
-        }
-        .subject-content {
+        .subject-list {
             display: none;
             padding: 10px;
-            background: #f0f0f0;
+            background: white;
             border-radius: 5px;
             margin-bottom: 10px;
-            text-align: left;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Step 1 & Step 2 Headers (Still Visible) -->
-        <div class="step-header">Step 1: Contact Information</div>
-        <div class="step-header">Step 2: Educational History and Credentials</div>
+        <!-- User Info Section -->
+        <div class="user-info">
+            <h1 id="userEmail">Loading...</h1>
+            <div class="name-container">
+                <input type="text" id="firstName" readonly>
+                <input type="text" id="lastName" readonly>
+            </div>
+        </div>
 
-        <!-- Step 3: Subjects Selection -->
-        <div class="section" id="step3">
-            <div class="step-header">Step 3: Select Subjects/Classes</div>
-            <div id="subjectsList">
-                <button class="subject-button">+ Math</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="math"> Algebra</label><br>
-                    <label><input type="checkbox" name="math"> Geometry</label><br>
-                    <label><input type="checkbox" name="math"> Trigonometry</label><br>
-                </div>
+        <!-- Step 1 -->
+        <div class="step-header">Step 1. Contact Information</div>
+        <div class="step-container">
+            <button class="btn">Male</button>
+            <button class="btn">Female</button>
+            <button class="btn">Prefer not to say</button>
+            <br><br>
+            <input type="text" placeholder="Address">
+            <input type="text" placeholder="Address Line 2">
+            <input type="text" placeholder="City">
+            <select>
+                <option value="Ohio">Ohio</option>
+            </select>
+            <input type="text" placeholder="ZIP Code">
+            <input type="text" placeholder="Cell Phone">
+            <input type="text" placeholder="Other Phone">
+        </div>
 
-                <button class="subject-button">+ Science</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="science"> Biology</label><br>
-                    <label><input type="checkbox" name="science"> Chemistry</label><br>
-                    <label><input type="checkbox" name="science"> Physics</label><br>
-                </div>
+        <!-- Step 2 -->
+        <div class="step-header">Step 2. Educational History & Credentials</div>
+        <div class="step-container">
+            <select>
+                <option value="">Select Education Level</option>
+                <option value="High School">High School</option>
+                <option value="Associate">Associate</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+                <option value="Doctorate">Doctorate</option>
+            </select>
+            <input type="text" placeholder="Major/Degree(s)">
+            <input type="date" placeholder="Graduation Date">
+            <input type="text" placeholder="School">
+            <input type="text" placeholder="Teaching Credentials (Optional)">
+            <textarea placeholder="Why are you a good tutor?"></textarea>
+            <textarea placeholder="Copy & Paste Resume"></textarea>
+            <button id="continueStep3">Continue to Step 3: Select Subjects/Classes</button>
+        </div>
 
-                <button class="subject-button">+ English</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="english"> Reading Comprehension</label><br>
-                    <label><input type="checkbox" name="english"> Writing & Grammar</label><br>
-                    <label><input type="checkbox" name="english"> Literature</label><br>
-                </div>
+        <!-- Step 3 -->
+        <div class="step-header">Step 3. Select Subjects & Classes</div>
+        <div id="step3" style="display:none;">
+            <div class="subject-category" onclick="toggleSubjects('math')">+ Math</div>
+            <div id="math" class="subject-list">
+                <input type="checkbox"> Algebra<br>
+                <input type="checkbox"> Geometry<br>
+                <input type="checkbox"> Trigonometry<br>
+                <input type="checkbox"> Calculus<br>
+            </div>
+            
+            <div class="subject-category" onclick="toggleSubjects('science')">+ Science</div>
+            <div id="science" class="subject-list">
+                <input type="checkbox"> Biology<br>
+                <input type="checkbox"> Chemistry<br>
+                <input type="checkbox"> Physics<br>
+            </div>
 
-                <button class="subject-button">+ History</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="history"> U.S. History</label><br>
-                    <label><input type="checkbox" name="history"> World History</label><br>
-                    <label><input type="checkbox" name="history"> Government & Civics</label><br>
-                </div>
-
-                <button class="subject-button">+ Foreign Language</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="language"> Spanish</label><br>
-                    <label><input type="checkbox" name="language"> French</label><br>
-                    <label><input type="checkbox" name="language"> German</label><br>
-                </div>
-
-                <button class="subject-button">+ Test Preparation</button>
-                <div class="subject-content">
-                    <label><input type="checkbox" name="testprep"> SAT</label><br>
-                    <label><input type="checkbox" name="testprep"> ACT</label><br>
-                    <label><input type="checkbox" name="testprep"> ASVAB</label><br>
-                </div>
+            <div class="subject-category" onclick="toggleSubjects('english')">+ English</div>
+            <div id="english" class="subject-list">
+                <input type="checkbox"> Literature<br>
+                <input type="checkbox"> Grammar<br>
+                <input type="checkbox"> Writing<br>
             </div>
         </div>
     </div>
@@ -122,7 +171,7 @@
             apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
             authDomain: "tutora-93be2.firebaseapp.com",
             projectId: "tutora-93be2",
-            storageBucket: "tutora-93be2.firebaseapp.com",
+            storageBucket: "tutora-93be2.appspot.com",
             messagingSenderId: "538400859458",
             appId: "1:538400859458:web:1c45fe0364821442d854db",
             measurementId: "G-SJ9FDWTHED"
@@ -145,18 +194,13 @@
             }
         });
 
-        // Expand/Collapse Subject Sections
-        document.querySelectorAll(".subject-button").forEach(button => {
-            button.addEventListener("click", function() {
-                let content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                    this.textContent = this.textContent.replace("-", "+");
-                } else {
-                    content.style.display = "block";
-                    this.textContent = this.textContent.replace("+", "-");
-                }
-            });
+        function toggleSubjects(id) {
+            let subjectDiv = document.getElementById(id);
+            subjectDiv.style.display = (subjectDiv.style.display === "none") ? "block" : "none";
+        }
+
+        document.getElementById("continueStep3").addEventListener("click", function () {
+            document.getElementById("step3").style.display = "block";
         });
     </script>
 </body>
