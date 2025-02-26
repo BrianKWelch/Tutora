@@ -124,30 +124,54 @@
             </div>
         </div>
 
-        <!-- Step 3: Subjects Selection (Initially Hidden) -->
-        <div class="section hidden-content" id="step3">
+        <!-- Step 3: Subjects Selection -->
+        <div class="section" id="step3">
             <div class="step-header">Step 3: Select Subjects/Classes</div>
             <div id="subjectsList">
-                <button class="collapsible">+ Kindergarten through 6th Grade</button>
+                <button class="subject-button">+ Math</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> Math</label>
-                    <label><input type="radio" name="subject"> Science</label>
-                    <label><input type="radio" name="subject"> Reading</label>
+                    <label><input type="checkbox" name="math"> Algebra</label><br>
+                    <label><input type="checkbox" name="math"> Geometry</label><br>
+                    <label><input type="checkbox" name="math"> Trigonometry</label><br>
                 </div>
-                <button class="collapsible">+ Biology</button>
+
+                <button class="subject-button">+ Science</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> General Biology</label>
-                    <label><input type="radio" name="subject"> AP Biology</label>
+                    <label><input type="checkbox" name="science"> Biology</label><br>
+                    <label><input type="checkbox" name="science"> Chemistry</label><br>
+                    <label><input type="checkbox" name="science"> Physics</label><br>
                 </div>
-                <button class="collapsible">+ Chemistry</button>
+
+                <button class="subject-button">+ English</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> General Chemistry</label>
-                    <label><input type="radio" name="subject"> Organic Chemistry</label>
+                    <label><input type="checkbox" name="english"> Reading Comprehension</label><br>
+                    <label><input type="checkbox" name="english"> Writing & Grammar</label><br>
+                    <label><input type="checkbox" name="english"> Literature</label><br>
+                </div>
+
+                <button class="subject-button">+ History</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="history"> U.S. History</label><br>
+                    <label><input type="checkbox" name="history"> World History</label><br>
+                    <label><input type="checkbox" name="history"> Government & Civics</label><br>
+                </div>
+
+                <button class="subject-button">+ Foreign Language</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="language"> Spanish</label><br>
+                    <label><input type="checkbox" name="language"> French</label><br>
+                    <label><input type="checkbox" name="language"> German</label><br>
+                </div>
+
+                <button class="subject-button">+ Test Preparation</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="testprep"> SAT</label><br>
+                    <label><input type="checkbox" name="testprep"> ACT</label><br>
+                    <label><input type="checkbox" name="testprep"> ASVAB</label><br>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Firebase SDK (Modules) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
