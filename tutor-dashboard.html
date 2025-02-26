@@ -22,32 +22,6 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .user-info {
-            background-color: #e0dbc8;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .user-info h1 {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 0;
-        }
-        .name-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .name-container input {
-            width: 150px;
-            padding: 10px;
-            font-size: 16px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
         .step-header {
             background-color: #8B0000;
             color: white;
@@ -57,92 +31,82 @@
             border-radius: 5px;
             text-align: left;
         }
-        .section {
-            background-color: #e0dbc8;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .subject-button {
+            width: 100%;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
             text-align: left;
+            cursor: pointer;
+            margin-top: 5px;
+            border-radius: 5px;
         }
-        .hidden-content {
+        .subject-button:focus {
+            outline: none;
+        }
+        .subject-content {
             display: none;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- User Info Section -->
-        <div class="user-info">
-            <h1 id="userEmail">Loading...</h1>
-            <div class="name-container">
-                <input type="text" id="firstName" readonly>
-                <input type="text" id="lastName" readonly>
-            </div>
-        </div>
+        <!-- Step 1 & Step 2 Headers (Still Visible) -->
+        <div class="step-header">Step 1: Contact Information</div>
+        <div class="step-header">Step 2: Educational History and Credentials</div>
 
-        <!-- Step 1: Contact Information -->
-        <div class="section">
-            <div class="step-header">Step 1: Contact Information</div>
-            <div id="step1Content">
-                <button>Male</button>
-                <button>Female</button>
-                <button>Prefer not to say</button>
-                <input type="text" placeholder="Address Line 1">
-                <input type="text" placeholder="Address Line 2">
-                <input type="text" placeholder="City">
-                <select>
-                    <option>State</option>
-                    <option>Ohio</option>
-                    <option>California</option>
-                    <option>Texas</option>
-                </select>
-                <input type="text" placeholder="ZIP Code">
-                <input type="text" placeholder="Cell Phone">
-                <input type="text" placeholder="Other Phone">
-            </div>
-        </div>
-
-        <!-- Step 2: Educational History -->
-        <div class="section">
-            <div class="step-header">Step 2: Educational History and Credentials</div>
-            <div id="step2Content">
-                <select>
-                    <option>Select Education Level</option>
-                    <option>High School</option>
-                    <option>Associate Degree</option>
-                    <option>Bachelor’s Degree</option>
-                    <option>Master’s Degree</option>
-                    <option>Doctorate</option>
-                </select>
-                <input type="text" placeholder="Major/Degree(s)">
-                <input type="text" placeholder="Graduation Date/Expected">
-                <input type="text" placeholder="School Name">
-                <input type="text" placeholder="Teaching Credentials (Optional)">
-                <textarea placeholder="Why are you a good tutor?"></textarea>
-                <textarea placeholder="Copy and paste your resume below"></textarea>
-                <button id="continueToStep3">Continue to Step 3: Select Subjects/Classes</button>
-            </div>
-        </div>
-
-        <!-- Step 3: Subjects Selection (Initially Hidden) -->
-        <div class="section hidden-content" id="step3">
+        <!-- Step 3: Subjects Selection -->
+        <div class="section" id="step3">
             <div class="step-header">Step 3: Select Subjects/Classes</div>
             <div id="subjectsList">
-                <button class="collapsible">+ Kindergarten through 6th Grade</button>
+                <button class="subject-button">+ Math</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> Math</label>
-                    <label><input type="radio" name="subject"> Science</label>
-                    <label><input type="radio" name="subject"> Reading</label>
+                    <label><input type="checkbox" name="math"> Algebra</label><br>
+                    <label><input type="checkbox" name="math"> Geometry</label><br>
+                    <label><input type="checkbox" name="math"> Trigonometry</label><br>
                 </div>
-                <button class="collapsible">+ Biology</button>
+
+                <button class="subject-button">+ Science</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> General Biology</label>
-                    <label><input type="radio" name="subject"> AP Biology</label>
+                    <label><input type="checkbox" name="science"> Biology</label><br>
+                    <label><input type="checkbox" name="science"> Chemistry</label><br>
+                    <label><input type="checkbox" name="science"> Physics</label><br>
                 </div>
-                <button class="collapsible">+ Chemistry</button>
+
+                <button class="subject-button">+ English</button>
                 <div class="subject-content">
-                    <label><input type="radio" name="subject"> General Chemistry</label>
-                    <label><input type="radio" name="subject"> Organic Chemistry</label>
+                    <label><input type="checkbox" name="english"> Reading Comprehension</label><br>
+                    <label><input type="checkbox" name="english"> Writing & Grammar</label><br>
+                    <label><input type="checkbox" name="english"> Literature</label><br>
+                </div>
+
+                <button class="subject-button">+ History</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="history"> U.S. History</label><br>
+                    <label><input type="checkbox" name="history"> World History</label><br>
+                    <label><input type="checkbox" name="history"> Government & Civics</label><br>
+                </div>
+
+                <button class="subject-button">+ Foreign Language</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="language"> Spanish</label><br>
+                    <label><input type="checkbox" name="language"> French</label><br>
+                    <label><input type="checkbox" name="language"> German</label><br>
+                </div>
+
+                <button class="subject-button">+ Test Preparation</button>
+                <div class="subject-content">
+                    <label><input type="checkbox" name="testprep"> SAT</label><br>
+                    <label><input type="checkbox" name="testprep"> ACT</label><br>
+                    <label><input type="checkbox" name="testprep"> ASVAB</label><br>
                 </div>
             </div>
         </div>
@@ -181,10 +145,18 @@
             }
         });
 
-        document.getElementById("continueToStep3").addEventListener("click", function() {
-            document.getElementById("step1Content").style.display = "none";
-            document.getElementById("step2Content").style.display = "none";
-            document.getElementById("step3").style.display = "block";
+        // Expand/Collapse Subject Sections
+        document.querySelectorAll(".subject-button").forEach(button => {
+            button.addEventListener("click", function() {
+                let content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                    this.textContent = this.textContent.replace("-", "+");
+                } else {
+                    content.style.display = "block";
+                    this.textContent = this.textContent.replace("+", "-");
+                }
+            });
         });
     </script>
 </body>
