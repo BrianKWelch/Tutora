@@ -118,12 +118,33 @@
         </div>
 
 
-        <!-- Step 2 -->
-        <div class="step-header">Step 2. Educational History and Credentials</div>
-        <div id="step2">
-            <p>Education fields go here...</p>
-            <button onclick="goToStep3()">Continue to Step 3</button>
+               <!-- Step 2: Educational History and Credentials -->
+        <div class="section-header">Step 2: Educational History and Credentials</div>
+        <div class="form-group">
+            <select id="educationLevel">
+                <option value="">Select Education Level</option>
+                <option value="highschool">High School Diploma</option>
+                <option value="associate">Associate Degree</option>
+                <option value="bachelor">Bachelor’s Degree</option>
+                <option value="master">Master’s Degree</option>
+                <option value="phd">PhD</option>
+            </select>
+            <input type="text" id="major" placeholder="Major/Degree(s)">
         </div>
+        <div class="form-group">
+            <input type="date" id="gradDate" placeholder="Graduation Date/Expected">
+            <input type="text" id="school" placeholder="School Name">
+        </div>
+        <div class="form-group">
+            <input type="text" id="credentials" placeholder="Teaching Credentials (Optional)">
+        </div>
+        <div class="form-group">
+            <textarea id="whyTutor" class="full-width" placeholder="Why are you a good tutor?"></textarea>
+        </div>
+        <div class="form-group">
+            <textarea id="resume" class="full-width" placeholder="Copy and paste your resume here..."></textarea>
+        </div>
+    </div>
 
         <!-- Step 3 -->
         <div class="step-header">Step 3. Select Subjects & Classes</div>
