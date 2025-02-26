@@ -22,7 +22,35 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .user-info, .contact-info {
+        .section-header {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            text-align: left;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .full-width {
+            width: 100% !important;
+        }
+        textarea {
+            height: 100px;
+        }
+        .user-info {
             background-color: #e0dbc8;
             padding: 15px;
             border-radius: 8px;
@@ -33,66 +61,20 @@
             font-weight: bold;
             margin: 0;
         }
-        .name-container, .contact-container {
+        .name-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin-top: 10px;
         }
-        .name-container input, .contact-container input, .contact-container select {
-            width: 200px;
+        .name-container input {
+            width: 150px;
             padding: 10px;
             font-size: 16px;
             text-align: center;
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #f9f9f9;
-        }
-        .contact-info {
-            background: #8B0000;
-            color: white;
-            padding: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: left;
-        }
-        .contact-form {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 15px;
-            background: #ede6d1;
-            border-radius: 10px;
-        }
-        .contact-form label {
-            font-size: 14px;
-            font-weight: bold;
-            display: block;
-        }
-        .contact-form input, .contact-form select {
-            width: 100%;
-            padding: 8px;
-            font-size: 14px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .contact-gender {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .contact-gender button {
-            background: green;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 5px;
-        }
-        .contact-gender button.active {
-            background: darkgreen;
         }
     </style>
 </head>
@@ -108,43 +90,63 @@
         </div>
 
         <!-- Step 1: Contact Information -->
-        <div class="contact-info">Step 1. Contact Information</div>
-        <div class="contact-form">
-            <!-- Gender Selection -->
-            <div class="contact-gender">
-                <button id="maleBtn">Male</button>
-                <button id="femaleBtn">Female</button>
-                <button id="otherBtn">Prefer not to say</button>
-            </div>
-            
-            <!-- Address Section -->
-            <input type="text" id="address1" placeholder="Street Address">
-            <input type="text" id="address2" placeholder="Address Line 2">
+        <div class="section-header">Step 1: Contact Information</div>
+        <div class="form-group">
+            <select id="gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="prefer-not-say">Prefer not to say</option>
+            </select>
+            <input type="text" id="address" placeholder="Address">
+        </div>
+        <div class="form-group">
+            <input type="text" id="cellPhone" placeholder="Cell Phone">
+            <input type="text" id="otherPhone" placeholder="Other Phone">
+        </div>
+        <div class="form-group">
             <input type="text" id="city" placeholder="City">
             <select id="state">
+                <option value="">Select State</option>
                 <option value="Ohio">Ohio</option>
-                <option value="Indiana">Indiana</option>
+                <option value="New York">New York</option>
                 <option value="California">California</option>
-                <option value="Texas">Texas</option>
+                <!-- Add more states as needed -->
             </select>
-            <input type="text" id="zip" placeholder="ZIP Code">
-
-            <!-- Phone Numbers -->
-            <label>Cell Phone</label>
-            <input type="text" id="cellPhone" placeholder="(###) ###-####">
-            <label>Other Phone</label>
-            <input type="text" id="otherPhone" placeholder="(###) ###-####">
+            <input type="text" id="zipCode" placeholder="ZIP Code">
         </div>
 
-        <h2>Welcome to Your Tutor Dashboard</h2>
-        <p>This is where tutors can manage their profile, availability, and sessions.</p>
-
-        <h3>Your Tutor Status:</h3>
-        <p id="tutorStatus">Checking status...</p>
+        <!-- Step 2: Educational History and Credentials -->
+        <div class="section-header">Step 2: Educational History and Credentials</div>
+        <div class="form-group">
+            <select id="educationLevel">
+                <option value="">Select Education Level</option>
+                <option value="highschool">High School Diploma</option>
+                <option value="associate">Associate Degree</option>
+                <option value="bachelor">Bachelor’s Degree</option>
+                <option value="master">Master’s Degree</option>
+                <option value="phd">PhD</option>
+            </select>
+            <input type="text" id="major" placeholder="Major/Degree(s)">
+        </div>
+        <div class="form-group">
+            <input type="date" id="gradDate" placeholder="Graduation Date/Expected">
+            <input type="text" id="school" placeholder="School Name">
+        </div>
+        <div class="form-group">
+            <input type="text" id="credentials" placeholder="Teaching Credentials (Optional)">
+        </div>
+        <div class="form-group">
+            <textarea id="whyTutor" class="full-width" placeholder="Why are you a good tutor?"></textarea>
+        </div>
+        <div class="form-group">
+            <textarea id="resume" class="full-width" placeholder="Copy and paste your resume here..."></textarea>
+        </div>
     </div>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK (Modules) -->
     <script type="module">
+        // Import Firebase services
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
@@ -165,33 +167,23 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Fetch user info and update dashboard
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById("userEmail").textContent = user.email;
 
-                // Fetch user details from Firestore
-                const userDocRef = doc(db, "users", user.uid);
-                const userDocSnap = await getDoc(userDocRef);
-                
-                if (userDocSnap.exists()) {
-                    document.getElementById("firstName").value = userDocSnap.data().firstName;
-                    document.getElementById("lastName").value = userDocSnap.data().lastName;
+                // Fetch first & last name from Firestore
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    document.getElementById("firstName").value = userDoc.data().firstName;
+                    document.getElementById("lastName").value = userDoc.data().lastName;
                 } else {
                     document.getElementById("firstName").value = "Unknown";
                     document.getElementById("lastName").value = "User";
                 }
             } else {
-                console.warn("No authenticated user found. Redirecting to login.");
-                window.location.href = "index.html";
+                window.location.href = "index.html"; // Redirect to login if not authenticated
             }
-        });
-
-        // Gender Selection Button Logic
-        document.querySelectorAll('.contact-gender button').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.contact-gender button').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-            });
         });
     </script>
 </body>
