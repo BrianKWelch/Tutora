@@ -359,9 +359,72 @@
     <button id="collapseAndProceed" class="proceed-button">Proceed to Step 4: Confirmation</button>
 </div>
     
-
+<!-- Step 4: Confirmation -->
+<div class="section hidden-content" id="step4">
+    <div class="step-header">Step 4: Agreement Confirmation</div>
+    
+    <p>This video answers the most common questions about our agreement. We look forward to working with you!</p>
+    <textarea rows="8" readonly>
+    accepted by the Tutor and shall provide these Services to such Client(s) of Grade Potential in a competent and professional manner, rendered in accordance with the provisions of section I.A. and the representations and warranties set forth in sections III.A., III.B. and III.C. of this Agreement. The Tutor understands that the Client is relying on the commitment of the Tutor to complete such engagement or series of engagements that the Tutor has accepted and agreed to perform at the client’s discretion at least through the end of the academic year which typically ends in May or June. In the event the Tutor fails to fulfill his/her obligation to...
+    </textarea>
+    
+    <label>
+        <input type="checkbox" id="agreementCheck"> 
+        BY MY CHECKING THIS BOX, I ACKNOWLEDGE THAT I HAVE BEEN PROVIDED AMPLE TIME TO REVIEW THE TERMS AND CONDITIONS OF THIS AGREEMENT AND UNDERSTAND AND AGREE TO ITS TERMS AND CONDITIONS.
+    </label>
+    
+    <p>In witness whereof, the parties have executed this agreement as of the date the tutor electronically signs this agreement. The CEO of Grade Potential has authorized that his electronic signature be affixed to this agreement.</p>
+    
+    <div class="signature-section">
+        <div class="signature-box">
+            <h4>TUTOR</h4>
+            <p>Electronically Signed By:</p>
+            <input type="text" value="Brian Welch" readonly>
+        </div>
+        <div class="signature-box">
+            <h4>GRADE POTENTIAL</h4>
+            <p>Electronically Signed By:</p>
+            <input type="text" value="David Serwitz, CEO" readonly>
+        </div>
+    </div>
+    
+    <div id="agreementWarning" class="warning-box">Check the box above to continue.</div>
+</div>
 
       <style>
+           #step4 {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    .signature-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .signature-box {
+        width: 48%;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .warning-box {
+        background-color: #d9edf7;
+        color: #31708f;
+        padding: 10px;
+        text-align: center;
+        margin-top: 15px;
+        border-radius: 5px;
+    }
    .content {
         display: none;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
