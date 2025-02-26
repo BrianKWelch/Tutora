@@ -337,19 +337,38 @@
         </div>
 
         <button class="collapsible">+ The Arts and Sports</button>
-        <div class="content" style="display: none;">
-            <label><input type="checkbox" name="arts_sports"> Art (Please note types)</label><br>
-            <label><input type="checkbox" name="arts_sports"> Dance (Please note types)</label><br>
-            <label><input type="checkbox" name="arts_sports"> Music (Please note types)</label><br>
-            <label><input type="checkbox" name="arts_sports"> Sports (Please note types)</label><br>
+        <div class="content" style="display: none; flex-wrap: wrap; display: flex; gap: 15px;">
+            <label><input type="checkbox" name="arts_sports"> Art (Please note types)</label>
+            <label><input type="checkbox" name="arts_sports"> Dance (Please note types)</label>
+            <label><input type="checkbox" name="arts_sports"> Music (Please note types)</label>
+            <label><input type="checkbox" name="arts_sports"> Sports (Please note types)</label>
+        </div>
+
+          <button class="collapsible">+ Test Preparation</button>
+        <div class="content" style="display: none; flex-wrap: wrap; display: flex; gap: 15px;">
+            <label><input type="checkbox" name="test_prep"> ACT</label>
+            <label><input type="checkbox" name="test_prep"> ASVAB</label>
+            <label><input type="checkbox" name="test_prep"> GMAT</label>
+            <label><input type="checkbox" name="test_prep"> GRE</label>
+            <label><input type="checkbox" name="test_prep"> LSAT</label>
+            <label><input type="checkbox" name="test_prep"> MCAT</label>
+            <label><input type="checkbox" name="test_prep"> Other Tests (Please Note Tests)</label>
+            <label><input type="checkbox" name="test_prep"> SAT Math</label>
+            <label><input type="checkbox" name="test_prep"> SAT Reading and Writing</label>
+            <label><input type="checkbox" name="test_prep"> TEAS</label>
         </div>
 
     </div>
 </div>
 
       <style>
+   .content {
+        display: none;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
     .content label {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 5px;
         white-space: nowrap;
