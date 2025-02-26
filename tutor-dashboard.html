@@ -382,7 +382,7 @@
             <input type="text" value="Brian Welch" readonly>
         </div>
         <div class="signature-box">
-            <h4>GRADE POTENTIAL</h4>
+            <h4>TUTOR</h4>
             <p>Electronically Signed By:</p>
             <input type="text" value="David Serwitz, CEO" readonly>
         </div>
@@ -469,6 +469,12 @@
             display: none;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         }
+      .content label {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        white-space: normal;
+      }
     }      
 </style>
 <script>
@@ -476,12 +482,22 @@
     document.querySelectorAll(".collapsible").forEach(button => {
         button.addEventListener("click", function() {
             let content = this.nextElementSibling;
+             let allContents = document.querySelectorAll(".content");
+
+        // Close all other sections
+        allContents.forEach(c => {
+            if (c !== content) c.style.display = "none";
+        });
+
+        // Toggle clicked section
             content.style.display = content.style.display === "block" ? "none" : "block";
         });
     });
      document.getElementById("collapseAndProceed").addEventListener("click", function() {
         document.getElementById("step3").style.display = "none"; // Hide Step 3
         document.getElementById("step4").style.display = "block"; // Show Step 4
+          // Smooth scroll to Step 4
+    document.getElementById("step4").scrollIntoView({ behavior: "smooth" });
         window.location.href = "#step4"; // Navigate to Step 4
     });
 </script>
@@ -512,8 +528,12 @@
                 document.getElementById("userEmail").textContent = user.email;
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
+                    let firstName = userDoc.data().firstName;
+                    let lastName = userDoc.data().lastName;
+                    
                     document.getElementById("firstName").value = userDoc.data().firstName;
                     document.getElementById("lastName").value = userDoc.data().lastName;
+                    document.getElementById("tutorName").value = firstName + " " + lastName;
                 }
             } else {
                 window.location.href = "index.html";
