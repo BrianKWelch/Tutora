@@ -22,7 +22,7 @@
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .user-info {
+        .user-info, .contact-info {
             background-color: #e0dbc8;
             padding: 15px;
             border-radius: 8px;
@@ -39,7 +39,7 @@
             gap: 10px;
             margin-top: 10px;
         }
-        .name-container input {
+        .name-container input, .contact-container input, .contact-container select {
             width: 150px;
             padding: 10px;
             font-size: 16px;
@@ -47,6 +47,43 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             background-color: #f9f9f9;
+        }
+        .contact-header {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 10px;
+        }
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .contact-container label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        .contact-container .input-group {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+        }
+        .gender-buttons button {
+            width: 32%;
+            padding: 10px;
+            font-size: 14px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .gender-buttons button.active {
+            background-color: darkgreen;
         }
     </style>
 </head>
@@ -58,6 +95,68 @@
             <div class="name-container">
                 <input type="text" id="firstName" readonly>
                 <input type="text" id="lastName" readonly>
+            </div>
+        </div>
+
+        <!-- Contact Information Section -->
+        <div class="contact-info">
+            <div class="contact-header">Step 1. Contact Information</div>
+            <div class="contact-container">
+                <!-- Gender Selection -->
+                <div class="input-group">
+                    <label>Gender</label>
+                    <div class="gender-buttons">
+                        <button type="button" onclick="selectGender('Male')">Male</button>
+                        <button type="button" onclick="selectGender('Female')">Female</button>
+                        <button type="button" onclick="selectGender('Prefer not to say')">Prefer not to say</button>
+                    </div>
+                </div>
+
+                <!-- Address Fields -->
+                <div class="input-group">
+                    <label>Street Address</label>
+                    <input type="text" id="address1">
+                    <input type="text" id="address2" placeholder="Address Line 2">
+                </div>
+
+                <div class="input-group">
+                    <label>City</label>
+                    <input type="text" id="city">
+                </div>
+
+                <div class="input-group">
+                    <label>State</label>
+                    <select id="state">
+                        <option value="">Select State</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <!-- Add all other states -->
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Zip Code</label>
+                    <input type="text" id="zip">
+                </div>
+
+                <!-- Contact Numbers -->
+                <div class="input-group">
+                    <label>Cell Phone</label>
+                    <input type="tel" id="cellPhone">
+                </div>
+
+                <div class="input-group">
+                    <label>Other Phone</label>
+                    <input type="tel" id="otherPhone">
+                </div>
             </div>
         </div>
 
@@ -107,13 +206,13 @@
 
         // Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
-            authDomain: "tutora-93be2.firebaseapp.com",
-            projectId: "tutora-93be2",
-            storageBucket: "tutora-93be2.firebaseapp.com",
-            messagingSenderId: "538400859458",
-            appId: "1:538400859458:web:1c45fe0364821442d854db",
-            measurementId: "G-SJ9FDWTHED"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
 
         // Initialize Firebase
@@ -121,24 +220,17 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Fetch user info and update dashboard
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 document.getElementById("userEmail").textContent = user.email;
-
-                // Fetch first & last name from Firestore
-                const userDoc = await getDoc(doc(db, "users", user.uid));
-                if (userDoc.exists()) {
-                    document.getElementById("firstName").value = userDoc.data().firstName;
-                    document.getElementById("lastName").value = userDoc.data().lastName;
-                } else {
-                    document.getElementById("firstName").value = "Unknown";
-                    document.getElementById("lastName").value = "User";
-                }
             } else {
-                window.location.href = "index.html"; // Redirect to login if not authenticated
+                window.location.href = "index.html"; 
             }
         });
+
+        function selectGender(gender) {
+            alert("Selected: " + gender);
+        }
     </script>
 </body>
 </html>
