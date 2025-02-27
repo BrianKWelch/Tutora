@@ -170,11 +170,13 @@
                 <input type="text" placeholder="ZIP Code">
                 <input type="text" placeholder="Cell Phone">
                 <input type="text" placeholder="Other Phone">
+                <button id="continueToStep2" class="proceed-button">Continue to Step 2</button>
             </div>
         </div>
 
+    
         <!-- Step 2: Educational History -->
-        <div class="section">
+        <div class="section hidden-content" id="step2">
             <div class="step-header">Step 2: Educational History and Credentials</div>
             <div id="step2Content">
                 <select>
@@ -601,7 +603,18 @@
             }
         });
 
-      document.getElementById("continueToStep3").addEventListener("click", function() {
+      document.getElementById("continueToStep2").addEventListener("click", function() {
+    // Hide Step 1
+    document.getElementById("step1Content").parentElement.style.display = "none"; 
+
+    // Show Step 2
+    document.getElementById("step2").style.display = "block";
+
+    // Smooth scroll to Step 2
+    document.getElementById("step2").scrollIntoView({ behavior: "smooth" });
+});
+
+        document.getElementById("continueToStep3").addEventListener("click", function() {
     // Hide Step 1
     document.querySelector(".section:nth-child(2)").style.display = "none"; 
 
