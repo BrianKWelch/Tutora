@@ -601,17 +601,19 @@
             }
         });
 
-       document.getElementById("continueToStep3").addEventListener("click", function() {
-    // Hide both Step 1 and Step 2 sections
-    document.querySelector(".section:nth-child(2)").style.display = "none"; // Step 1
-    document.querySelector(".section:nth-child(3)").style.display = "none"; // Step 2
-    
+      document.getElementById("continueToStep3").addEventListener("click", function() {
+    // Hide Step 1
+    document.querySelector(".section:nth-child(2)").style.display = "none"; 
+
+    // Hide Step 2 (Make sure you have the correct ID for Step 2)
+    document.getElementById("step2Content").parentElement.style.display = "none"; 
+
     // Show Step 3
     document.getElementById("step3").style.display = "block";
 
     // Scroll smoothly to Step 3
     document.getElementById("step3").scrollIntoView({ behavior: "smooth" });
-        });
+});
     </script>
 </body>
 </html>
