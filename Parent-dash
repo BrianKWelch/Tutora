@@ -1,1 +1,52 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h2>Tutora</h2>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Schedule</a></li>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Welcome, <span id="userName">User</span></h1>
+            <div id="dynamicContent">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let userType = localStorage.getItem("userType");
+            let userName = localStorage.getItem("firstName") || "User";
+            document.getElementById("userName").textContent = userName;
+
+            let content = "";
+            if (userType === "tutor") {
+                content = `<h2>Your Upcoming Sessions</h2><p>Session details go here...</p>`;
+            } else if (userType === "parent") {
+                content = `<h2>Your Children</h2><select id='childSelect'></select><p>Child details here...</p>`;
+            } else if (userType === "student") {
+                content = `<h2>Your Scheduled Lessons</h2><p>Lesson details go here...</p>`;
+            }
+            document.getElementById("dynamicContent").innerHTML = content;
+        });
+    </script>
+</body>
+</html>
