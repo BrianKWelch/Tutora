@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutora - Login & Sign Up</title>
+    <title>Tutora - Login & Register</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container" id="loginContainer">
         <h1>Welcome to Tutora</h1>
-        <p>Select your role and log in or sign up</p>
+        <p>Select your role and log in or register</p>
 
         <!-- Role Selection -->
         <div class="role-selection">
@@ -22,8 +22,13 @@
         <input type="text" id="identifier" placeholder="Enter Email or Student ID">
         <input type="password" id="password" placeholder="Enter Password">
 
+        <!-- Login Section -->
+        <p><strong>Already registered:</strong></p>
         <button id="loginBtn">Log In</button>
-        <button id="signUpBtn">Sign Up</button>
+
+        <!-- Register Section -->
+        <p><strong>Want to join the learning?</strong></p>
+        <button id="signUpBtn">Register</button>
 
         <p id="errorMessage" style="color: red;"></p>
     </div>
@@ -93,11 +98,11 @@
             }
         });
 
-        // Sign Up Function
+        // Register Function
         document.getElementById("signUpBtn").addEventListener("click", function() {
             let userType = document.querySelector('input[name="userType"]:checked')?.value;
             if (!userType) {
-                document.getElementById("errorMessage").textContent = "Please select a role to sign up.";
+                document.getElementById("errorMessage").textContent = "Please select a role to register.";
                 return;
             }
             let signupPage = userType === "tutor" ? "tutor-reg.html" : "student-reg.html";
