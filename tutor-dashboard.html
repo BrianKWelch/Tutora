@@ -103,7 +103,18 @@
             align-items: center; /* Aligns the checkbox with the text */
             gap: 8px; /* Adds spacing between the checkbox and the label */
         }
-          .gender-btn:hover {
+          .checkbox-container {
+            display: flex;
+            align-items: center; /* Align checkbox and text */
+            gap: 10px; /* Add space between checkbox and label */
+            margin-top: 5px; /* Add spacing to ensure it's visually balanced */
+        }
+
+         .checkbox-container input[type="checkbox"] {
+            width: 18px; /* Standard checkbox size */
+            height: 18px;
+        }
+        .gender-btn:hover {
                opacity: 0.8;
         }
         .section input, .section select {
@@ -177,11 +188,12 @@
     <div id="subjectsList">
 
         <!-- Collapsible Subjects -->
-        <button class="collapsible">+ Kindergarten through 6th Grade</button>
+       <button class="collapsible">+ Kindergarten through 6th Grade</button>
 <div class="content" style="display: none;">
-    <label class="checkbox-label">
-        <input type="checkbox" name="kindergarten"> <span>K-6 General</span>
-    </label>
+    <div class="checkbox-container">
+        <input type="checkbox" name="kindergarten">
+        <label for="kindergarten">K-6 General</label>
+    </div>
 </div>
 
         <button class="collapsible">+ Biology</button>
