@@ -16,7 +16,7 @@
         <input type="password" id="password" placeholder="Enter Password">
         <select id="userType">
             <option value="tutor">Tutor</option>
-            <option value="student">Parent/Student</option>
+            <option value="parent_student">Parent or Student (18+)</option>
         </select>
         <button id="loginBtn">Log In</button>
         <button id="signUpBtn">Sign Up</button>
@@ -34,7 +34,7 @@
             apiKey: "AIzaSyCmzDsxlhQwMZTlpnPlVLRRVxDQZwKW6zI",
             authDomain: "tutora-93be2.firebaseapp.com",
             projectId: "tutora-93be2",
-            storageBucket: "tutora-93be2.firebaseapp.com",
+            storageBucket: "tutora-93be2.appspot.com",
             messagingSenderId: "538400859458",
             appId: "1:538400859458:web:1c45fe0364821442d854db",
             measurementId: "G-SJ9FDWTHED"
@@ -44,11 +44,14 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        function getRedirectPage(userType) {
+            return (userType === "tutor") ? "tutor-reg.html" : "student-reg.html";
+        }
+
         // Login Event Listener
         document.getElementById("loginBtn").addEventListener("click", async function() {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
-            let userType = document.getElementById("userType").value;
             let errorMessage = document.getElementById("errorMessage");
             errorMessage.textContent = "";
 
@@ -60,12 +63,14 @@
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists()) {
                     const userData = userDoc.data();
+                    let userType = userData.userType; // Fetch userType from Firestore
+
                     localStorage.setItem("firstName", userData.firstName || "Unknown");
                     localStorage.setItem("lastName", userData.lastName || "User");
                     localStorage.setItem("userEmail", user.email);
                     localStorage.setItem("userType", userType);
-                    
-                    window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
+
+                    window.location.href = getRedirectPage(userType);
                 } else {
                     errorMessage.textContent = "User data not found!";
                 }
@@ -101,8 +106,8 @@
                 localStorage.setItem("firstName", firstName);
                 localStorage.setItem("lastName", lastName);
                 localStorage.setItem("userType", userType);
-                
-                window.location.href = (userType === "tutor") ? "tutor-dashboard.html" : "student-dashboard.html";
+
+                window.location.href = getRedirectPage(userType);
             } catch (error) {
                 errorMessage.textContent = error.message;
             }
