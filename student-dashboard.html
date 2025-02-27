@@ -1,7 +1,113 @@
 <!DOCTYPE html>
-<html>
-<head><title>Student Dashboard</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .step-header {
+            background-color: #8B0000;
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .section {
+            background-color: #e0dbc8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .hidden-content {
+            display: none;
+        }
+        .proceed-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .proceed-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
 <body>
-    <h1>Welcome to the Student Dashboard!</h1>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <p>Select your registration type:</p>
+        <select id="userType">
+            <option value="parent">I am a Parent</option>
+            <option value="student">I am a Student (18+)</option>
+        </select>
+
+        <div id="parentSection" class="section">
+            <div class="step-header">Parent Information</div>
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Phone Number">
+            <div class="step-header">Child(ren) Information</div>
+            <div id="kidsList">
+                <div class="kid-entry">
+                    <input type="text" placeholder="Child's Full Name">
+                    <input type="text" placeholder="Grade Level">
+                </div>
+            </div>
+            <button type="button" onclick="addChild()">+ Add Another Child</button>
+        </div>
+
+        <div id="studentSection" class="section hidden-content">
+            <div class="step-header">Student Information</div>
+            <input type="text" placeholder="Full Name">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Phone Number">
+        </div>
+
+        <button class="proceed-button" onclick="proceedToPayment()">Proceed to Payment</button>
+    </div>
+
+    <script>
+        document.getElementById("userType").addEventListener("change", function() {
+            if (this.value === "parent") {
+                document.getElementById("parentSection").style.display = "block";
+                document.getElementById("studentSection").style.display = "none";
+            } else {
+                document.getElementById("parentSection").style.display = "none";
+                document.getElementById("studentSection").style.display = "block";
+            }
+        });
+
+        function addChild() {
+            let div = document.createElement("div");
+            div.className = "kid-entry";
+            div.innerHTML = '<input type="text" placeholder="Child\'s Full Name">' +
+                            '<input type="text" placeholder="Grade Level">';
+            document.getElementById("kidsList").appendChild(div);
+        }
+    </script>
 </body>
 </html>
