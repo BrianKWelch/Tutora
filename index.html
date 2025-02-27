@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutora - Login</title>
+    <title>Tutora - Login & Sign Up</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,8 @@
         <!-- Role Selection -->
         <div class="role-selection">
             <label><input type="radio" name="userType" value="tutor"> Tutor</label>
-            <label><input type="radio" name="userType" value="parent-student"> Parent / Student (18+)</label>
+            <label><input type="radio" name="userType" value="parent"> Parent</label>
+            <label><input type="radio" name="userType" value="student"> Student (18+)</label>
         </div>
 
         <!-- Login Fields -->
@@ -55,19 +56,22 @@
             errorMessage.textContent = "";
 
             if (!userType) {
-                errorMessage.textContent = "Please select a role (Tutor or Parent/Student).";
+                errorMessage.textContent = "Please select a role (Tutor, Parent, or Student).";
                 return;
             }
 
             try {
-                if (userType === "parent-student") {
+                if (userType === "parent" || userType === "student") {
                     // Parent or Student logs in (using email or Student ID)
                     const userRef = doc(db, "users", identifier);
                     const userDoc = await getDoc(userRef);
 
                     if (userDoc.exists()) {
+                        let userData = userDoc.data();
+                        let dashboard = userData.userType === "parent" ? "parent-dashboard.html" : "student-dashboard.html";
+                        
                         localStorage.setItem("userEmail", identifier);
-                        window.location.href = "parent-student-dashboard.html";
+                        window.location.href = dashboard;
                     } else {
                         errorMessage.textContent = "Invalid Email or Student ID!";
                     }
@@ -96,7 +100,7 @@
                 document.getElementById("errorMessage").textContent = "Please select a role to sign up.";
                 return;
             }
-            let signupPage = userType === "tutor" ? "tutor-reg.html" : "parent-student-reg.html";
+            let signupPage = userType === "tutor" ? "tutor-reg.html" : "student-reg.html";
             window.location.href = signupPage;
         });
     </script>
