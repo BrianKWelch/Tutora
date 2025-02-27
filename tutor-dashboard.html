@@ -608,28 +608,28 @@
         });
 
           document.getElementById("continueToStep2").addEventListener("click", function() {
-        // Hide Step 1
+            // Hide Step 1
         document.getElementById("step1Content").parentElement.style.display = "none"; 
 
-    // Show Step 2
-    document.getElementById("step2").style.display = "block";
+            // Show Step 2
+        document.getElementById("step2").style.display = "block";
 
-    // Smooth scroll to Step 2
-    document.getElementById("step2").scrollIntoView({ behavior: "smooth" });
+            // Smooth scroll to Step 2
+        document.getElementById("step2").scrollIntoView({ behavior: "smooth" });
 });
 
-        document.getElementById("continueToStep3").addEventListener("click", function() {
-    // Hide Step 1
-    document.querySelector(".section:nth-child(2)").style.display = "none"; 
-
-    // Hide Step 2 (Make sure you have the correct ID for Step 2)
-    document.getElementById("step2Content").parentElement.style.display = "none"; 
-
-    // Show Step 3
-    document.getElementById("step3").style.display = "block";
-
-    // Scroll smoothly to Step 3
-    document.getElementById("step3").scrollIntoView({ behavior: "smooth" });
+         document.getElementById("continueToStep3").addEventListener("click", function() {
+            // Hide Step 1
+         document.querySelector(".section:nth-child(2)").style.display = "none"; 
+            // Hide Step 2 (Make sure you have the correct ID for Step 2)
+         document.getElementById("step2Content").parentElement.style.display = "none";
+            // Show Step 3
+         document.getElementById("step3").style.display = "block";
+             // Close all collapsible subject sections
+         document.querySelectorAll(".content").forEach(content => {
+        content.style.display = "none";
+            // Scroll smoothly to Step 3
+         document.getElementById("step3").scrollIntoView({ behavior: "smooth" });
 });
     </script>
 </body>
