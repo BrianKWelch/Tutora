@@ -98,7 +98,11 @@
             cursor: pointer;
             text-align: center;
         }
-
+        .checkbox-label {
+            display: flex;
+            align-items: center; /* Aligns the checkbox with the text */
+            gap: 8px; /* Adds spacing between the checkbox and the label */
+        }
           .gender-btn:hover {
                opacity: 0.8;
         }
@@ -174,9 +178,11 @@
 
         <!-- Collapsible Subjects -->
         <button class="collapsible">+ Kindergarten through 6th Grade</button>
-        <div class="content" style="display: none;">
-            <label><input type="checkbox" name="kindergarten"> K-6 General</label><br>
-        </div>
+<div class="content" style="display: none;">
+    <label class="checkbox-label">
+        <input type="checkbox" name="kindergarten"> <span>K-6 General</span>
+    </label>
+</div>
 
         <button class="collapsible">+ Biology</button>
         <div class="content" style="display: none;">
