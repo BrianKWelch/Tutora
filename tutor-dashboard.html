@@ -14,6 +14,13 @@
             background-color: #f4f4f4;
             padding: 20px;
         }
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px; /* Reduce vertical spacing */
+            padding: 0px !important;
+            margin: 0px !important;
+        }
         .container {
             max-width: 800px;
             background: white;
@@ -108,14 +115,16 @@
              align-items: center;
              gap: 5px; /* Space between checkbox and label */
              margin: 0px; /* Remove any extra margin */
-             padding: 2px 0; /* Slightly reduce padding */
+             padding: 0px 0; /* Slightly reduce padding */
              line-height: 1; /* Reduce line height to make checkboxes closer */
         }
 
          .checkbox-container input[type="checkbox"] {
-            width: 18px; /* Standard checkbox size */
-             transform: scale(0.9); /* Slightly reduce checkbox size */
-            height: 18px;
+            .checkbox-container input {
+                margin: 0px !important; /* Remove default checkbox margin */
+                padding: 0px !important;
+                width: 16px; /* Adjust checkbox size if necessary */
+                height: 16px;
         }
         .gender-btn:hover {
                opacity: 0.8;
